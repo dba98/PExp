@@ -4,10 +4,9 @@ package com.plataforma.explicacoes.models;
 import lombok.Data;
 import lombok.Generated;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Entity
@@ -20,13 +19,19 @@ public class Aluno {
 
     private int num;
     private String name;
-    // falta adicionar curso CURSO!
-    // façta atendimentos
 
-    public Aluno(String name, int num){
+    
+   @ManyToMany(mappedBy = "Curso")
+   private Set<Curso> curso = new HashSet<>();
+
+    @OneToMany(mappedBy = "Aluno")
+    private Set<Atendimento> atendimentos = new HashSet<>();
+
+    public Aluno(String name, int num) {
         this.setName(name);
         this.setNum(num);
     }
+
 
 }
 
