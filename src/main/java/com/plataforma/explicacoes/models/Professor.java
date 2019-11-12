@@ -2,26 +2,25 @@ package com.plataforma.explicacoes.models;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Entity
 public class Professor {
 
-    private String name;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String name;
     private int num;
 
+    @OneToMany(mappedBy = "atendimento")
+    private Set<Atendimento> atendimentos = new HashSet<>();
+
     public Professor(String name, int num) {
-        this.name = name;
-        this.num = num;
+        this.setName(name);
+        this.setNum(num);
     }
-
-
 }
