@@ -7,24 +7,18 @@ import java.util.Set;
 
 @Data
 @Entity
-public class Cadeira {
+public class Universidade {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
-    private Integer codigo;
 
-    @ManyToOne
-    private Curso curso;
+    @OneToMany
+    private Set<Faculdade> faculdade= new HashSet<>();
 
-    @ManyToMany
-    private Set<Professor> professor=new HashSet<>();
-
-    public Cadeira(String name, Integer codigo, Curso curso) {
+    public Universidade(String name) {
         this.name = name;
-        this.codigo = codigo;
-        this.curso = curso;
     }
 }
