@@ -1,5 +1,7 @@
 package com.plataforma.explicacoes.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import javax.persistence.*;
 import java.util.HashSet;
@@ -16,15 +18,17 @@ public class Cadeira {
     private String name;
     private Integer codigo;
 
-    @ManyToOne
+    @ManyToOne()
+    @JsonBackReference
     private Curso curso;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "Cadeira")
+    @JsonManagedReference
     private Set<Professor> professor=new HashSet<>();
 
     public Cadeira(String name, Integer codigo, Curso curso) {
-        this.name = name;
-        this.codigo = codigo;
-        this.curso = curso;
+        this.setName(name);
+        this.setCodigo(codigo);
+        this.setCurso(curso);
     }
 }
