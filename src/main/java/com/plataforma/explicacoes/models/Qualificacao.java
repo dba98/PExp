@@ -10,28 +10,16 @@ import java.util.Set;
 
 @Data
 @Entity
-public class Professor {
-
+public class Qualificacao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private int num;
-
-    @OneToMany(mappedBy = "atendimento")
+    @OneToMany
     @JsonManagedReference
-    private Set<Atendimento> atendimentos = new HashSet<>();
+    private Set<Professor> professor = new HashSet<>();
 
-    @ManyToOne
-    @JsonBackReference
-    private Qualificacao grau;
-
-    @OneToOne
-    private Popularidade popularidade;
-
-
-    public Professor(String name, int num) {
+    public Qualificacao(String name) {
         this.setName(name);
-        this.setNum(num);
     }
 }
