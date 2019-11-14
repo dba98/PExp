@@ -1,5 +1,6 @@
 package com.plataforma.explicacoes.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import javax.persistence.*;
 import java.util.HashSet;
@@ -15,7 +16,8 @@ public class Universidade {
 
     private String name;
 
-    @OneToMany
+    @OneToMany (mappedBy = "universidade")
+    @JsonManagedReference
     private Set<Faculdade> faculdade= new HashSet<>();
 
     public Universidade(String name) {

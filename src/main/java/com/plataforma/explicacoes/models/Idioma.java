@@ -4,24 +4,23 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
 
 @Data
 @Entity
-
-public class Horario {
+public class Idioma {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Date dia;
-
+    private String name;
     @ManyToOne
     @JsonBackReference
-    private Professor professor;
+    private Set<Faculdade> faculdade = new HashSet<>();
 
-    public Horario (Date dia, Professor professor){
-        this.setDia(dia);
-        this.setProfessor(professor);
+    public Idioma (String name){
+        this.setName(name);
     }
 }

@@ -1,5 +1,6 @@
 package com.plataforma.explicacoes.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -17,6 +18,7 @@ public class Professor {
     private int num;
 
     @OneToMany(mappedBy = "atendimento")
+    @JsonManagedReference
     private Set<Atendimento> atendimentos = new HashSet<>();
 
     public Professor(String name, int num) {
