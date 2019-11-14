@@ -1,12 +1,10 @@
 package com.plataforma.explicacoes.models;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Data
@@ -20,14 +18,24 @@ public class Atendimento {
 
     private Date Dinicio;
     private Date Dfim;
-    //professor
-    //aluno
-    //cadeira
 
-    public Atendimento (Date dinicio, Date dfim){
+    @ManyToOne
+    @JsonBackReference
+    private Professor professor;
+
+    @ManyToOne
+    @JsonBackReference
+    private Aluno aluno;
+
+    private Cadeira cadeira;
+
+    public Atendimento (Date dinicio, Date dfim, Professor professor, Aluno aluno, Cadeira cadeira){
 
         this.setDinicio(dinicio);
         this.setDfim(dfim);
+        this.setProfessor(professor);
+        this.setCadeira(cadeira);
+        this.setAluno(aluno);
     }
 }
 
