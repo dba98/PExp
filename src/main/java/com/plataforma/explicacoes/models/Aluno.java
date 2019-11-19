@@ -35,6 +35,7 @@ public class Aluno {
         this.setName(name);
         this.setNum(num);
         this.setCurso(curso);
+        curso.getAlunos().add(this);
     }
 
 

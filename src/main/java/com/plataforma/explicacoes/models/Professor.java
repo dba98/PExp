@@ -1,6 +1,7 @@
 package com.plataforma.explicacoes.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
@@ -22,6 +23,14 @@ public class Professor {
     @JsonManagedReference
     private Set<Atendimento> atendimentos = new HashSet<>();
 
+    @ManyToMany(mappedBy = "cadeira")
+    @JsonManagedReference
+    private Set<Idioma> idiomas = new HashSet<>();
+
+    @ManyToMany
+    @JsonIgnore
+    private Set<Cadeira> cadeiras = new HashSet<>();
+
     @ManyToOne
     @JsonBackReference
     private Qualificacao grau;
@@ -29,9 +38,13 @@ public class Professor {
     @OneToOne
     private Popularidade popularidade;
 
-
-    public Professor(String name, int num) {
+    public Professor(String name, int num, Idioma idioma,Qualificacao grau) {
         this.setName(name);
         this.setNum(num);
+        this.setGrau(grau);
+        this.getIdiomas().add(idioma);
+        idioma.getProfessores().add(this);
+        grau.getProfessor().add(this);
+
     }
 }

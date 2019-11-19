@@ -24,15 +24,17 @@ public class Curso {
 
     @OneToMany(mappedBy = "Curso")
     @JsonManagedReference
-    private Set<Cadeira> cadeira= new HashSet<>();
+    private Set<Cadeira> cadeiras= new HashSet<>();
 
     @OneToMany(mappedBy = "Curso")
     @JsonManagedReference
-    private Set<Aluno> aluno= new HashSet<>();
+    private Set<Aluno> alunos= new HashSet<>();
 
     public Curso(String nome, Integer codigo, Faculdade faculdade) {
         this.setNome(nome);
         this.setCodigo(codigo);
         this.setFaculdade(faculdade);
+        faculdade.getCurso().add(this);
+
     }
 }

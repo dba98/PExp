@@ -24,11 +24,13 @@ public class Cadeira {
 
     @ManyToMany(mappedBy = "Cadeira")
     @JsonManagedReference
-    private Set<Professor> professor=new HashSet<>();
+    private Set<Professor> professores=new HashSet<>();
 
     public Cadeira(String name, Integer codigo, Curso curso) {
         this.setName(name);
         this.setCodigo(codigo);
         this.setCurso(curso);
+        curso.getCadeiras().add(this);
+
     }
 }

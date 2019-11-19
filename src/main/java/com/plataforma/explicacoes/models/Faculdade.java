@@ -23,10 +23,11 @@ public class Faculdade {
 
     @OneToMany(mappedBy = "faculdade")
     @JsonManagedReference
-    private Set<Curso> curso= new HashSet<>();
+    private Set<Curso> cursos= new HashSet<>();
 
     public Faculdade(String name, Universidade universidade) {
-        this.name = name;
-        this.universidade = universidade;
+        this.setName(name);
+        this.setUniversidade(universidade);
+        universidade.getFaculdade().add(this);
     }
 }

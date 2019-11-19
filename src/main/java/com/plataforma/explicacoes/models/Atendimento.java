@@ -16,8 +16,9 @@ public class Atendimento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private Date Dinicio;
-    private Date Dfim;
+    private Date dinicio;
+    private Date dfim;
+    private Cadeira cadeira;
 
     @ManyToOne
     @JsonBackReference
@@ -27,7 +28,7 @@ public class Atendimento {
     @JsonBackReference
     private Aluno aluno;
 
-    private Cadeira cadeira;
+
 
     public Atendimento (Date dinicio, Date dfim, Professor professor, Aluno aluno, Cadeira cadeira){
 
