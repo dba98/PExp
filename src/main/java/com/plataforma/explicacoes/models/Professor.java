@@ -38,11 +38,13 @@ public class Professor {
     @OneToOne
     private Popularidade popularidade;
 
-    public Professor(String name, int num, Idioma idioma,Qualificacao grau) {
+    public Professor(String name, int num,Cadeira cadeira, Idioma idioma,Qualificacao grau) {
         this.setName(name);
         this.setNum(num);
         this.setGrau(grau);
         this.getIdiomas().add(idioma);
+        this.getCadeiras().add(cadeira);
+        cadeira.getProfessores().add(this);
         idioma.getProfessores().add(this);
         grau.getProfessor().add(this);
 

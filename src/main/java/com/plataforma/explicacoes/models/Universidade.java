@@ -17,7 +17,7 @@ public class Universidade {
 
     private String name;
 
-    @OneToMany(mappedBy = "universidade")
+    @OneToMany(mappedBy = "universidade",cascade = CascadeType.PERSIST)
     @JsonManagedReference
     private Set<Faculdade> faculdade = new HashSet<>();
 

@@ -22,7 +22,7 @@ public class Cadeira {
     @JsonBackReference
     private Curso curso;
 
-    @ManyToMany(mappedBy = "Cadeira")
+    @ManyToMany(mappedBy = "Cadeira",cascade = CascadeType.PERSIST)
     @JsonManagedReference
     private Set<Professor> professores=new HashSet<>();
 

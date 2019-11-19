@@ -21,7 +21,7 @@ public class Faculdade {
     @JsonBackReference
     private Universidade universidade;
 
-    @OneToMany(mappedBy = "faculdade")
+    @OneToMany(mappedBy = "faculdade", cascade = CascadeType.PERSIST)
     @JsonManagedReference
     private Set<Curso> cursos= new HashSet<>();
 

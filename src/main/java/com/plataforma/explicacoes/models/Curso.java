@@ -22,11 +22,11 @@ public class Curso {
     @JsonBackReference
     private Faculdade faculdade;
 
-    @OneToMany(mappedBy = "Curso")
+    @OneToMany(mappedBy = "Curso", cascade = CascadeType.PERSIST)
     @JsonManagedReference
     private Set<Cadeira> cadeiras= new HashSet<>();
 
-    @OneToMany(mappedBy = "Curso")
+    @OneToMany(mappedBy = "Curso", cascade = CascadeType.PERSIST)
     @JsonManagedReference
     private Set<Aluno> alunos= new HashSet<>();
 
@@ -34,7 +34,7 @@ public class Curso {
         this.setNome(nome);
         this.setCodigo(codigo);
         this.setFaculdade(faculdade);
-        faculdade.getCurso().add(this);
+        faculdade.getCursos().add(this);
 
     }
 }
