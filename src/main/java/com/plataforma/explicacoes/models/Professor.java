@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -19,19 +21,25 @@ public class Professor {
     private String name;
     private int num;
 
-    @OneToMany(mappedBy = "atendimento")
+    @OneToMany(mappedBy = "professor")
     @JsonManagedReference
     private Set<Atendimento> atendimentos = new HashSet<>();
 
-    @ManyToMany(mappedBy = "cadeira")
-    @JsonManagedReference
+    @ManyToMany
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonBackReference
     private Set<Idioma> idiomas = new HashSet<>();
 
     @ManyToMany
-    @JsonIgnore
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonBackReference
     private Set<Cadeira> cadeiras = new HashSet<>();
 
     @ManyToOne
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     @JsonBackReference
     private Qualificacao grau;
 

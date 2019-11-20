@@ -49,6 +49,8 @@ public class Bootstrap implements ApplicationListener <ContextRefreshedEvent> {
 
         Professor professor1 = new Professor("Alessandro", 11111, cadeira1, idioma1, qualificacao1);
 
+
+
         this.universidadeRepo.save(universidade1);
         this.idiomaRepo.save(idioma1);
         this.qualificacaoRepo.save(qualificacao1);

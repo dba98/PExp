@@ -16,6 +16,7 @@ public class Qualificacao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
     @OneToMany
     @JsonManagedReference
     private Set<Professor> professor = new HashSet<>();

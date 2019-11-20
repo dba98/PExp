@@ -2,6 +2,7 @@ package com.plataforma.explicacoes.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -17,8 +18,9 @@ public class Idioma {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
     @ManyToMany
-    @JsonIgnore
+    @JsonManagedReference
     private Set<Professor> professores = new HashSet<>();
 
     public Idioma (String name){
