@@ -38,6 +38,7 @@ public class Bootstrap implements ApplicationListener <ContextRefreshedEvent> {
         Faculdade faculdade1 = new Faculdade("Faculdade de Ciencias", universidade1);
 
         Curso curso1 = new Curso("Engenharia Informática", 1, faculdade1);
+        Curso curso2 = new Curso("Ciencias da Comunicação", 2, faculdade1);
 
         Cadeira cadeira1 = new Cadeira("Engenharia Software", 1, curso1);
 

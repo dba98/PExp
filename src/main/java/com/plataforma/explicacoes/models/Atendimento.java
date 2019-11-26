@@ -44,7 +44,9 @@ public class Atendimento {
 
         this.setDinicio(dinicio);
         this.setDfim(dfim);
+
         this.setProfessor(professor);
+
         this.setCadeira(cadeira);
         this.setAluno(aluno);
     }

@@ -36,10 +36,16 @@ public class Curso {
     private Set<Aluno> alunos= new HashSet<>();
 
     public Curso(String nome, Integer codigo, Faculdade faculdade) {
-        this.setNome(nome);
+        //this.setNome(nome);
+        this(nome);
         this.setCodigo(codigo);
         this.setFaculdade(faculdade);
         faculdade.getCursos().add(this);
-
     }
+
+    public Curso(String nome){
+        this.setNome(nome);
+    }
+
+
 }

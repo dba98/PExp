@@ -35,4 +35,10 @@ public class Faculdade {
         this.setUniversidade(universidade);
         universidade.getFaculdade().add(this);
     }
+
+    public void addCurso(Curso curso){
+        curso.setFaculdade(this);
+        this.cursos.add(curso);
+
+    }
 }
