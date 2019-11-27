@@ -18,7 +18,6 @@ public class Atendimento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
     private Date dinicio;
     private Date dfim;
 
@@ -38,15 +37,10 @@ public class Atendimento {
     @JsonBackReference
     private Aluno aluno;
 
-
-
     public Atendimento (Date dinicio, Date dfim, Professor professor, Aluno aluno, Cadeira cadeira){
-
         this.setDinicio(dinicio);
         this.setDfim(dfim);
-
         this.setProfessor(professor);
-
         this.setCadeira(cadeira);
         this.setAluno(aluno);
     }

@@ -1,7 +1,5 @@
 package com.plataforma.explicacoes.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
@@ -25,5 +23,9 @@ public class Idioma {
 
     public Idioma (String name){
         this.setName(name);
+    }
+
+    public void addProfessor(Professor professor){
+        this.professores.add(professor);
     }
 }

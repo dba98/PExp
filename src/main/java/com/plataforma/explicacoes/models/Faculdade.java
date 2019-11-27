@@ -33,7 +33,7 @@ public class Faculdade {
     public Faculdade(String name, Universidade universidade) {
         this.setName(name);
         this.setUniversidade(universidade);
-        universidade.getFaculdade().add(this);
+
     }
 
     public void addCurso(Curso curso){

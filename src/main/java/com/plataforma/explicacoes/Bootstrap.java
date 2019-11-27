@@ -15,7 +15,7 @@ import javax.transaction.Transactional;
 
 @Component
 @Transactional
-public class Bootstrap implements ApplicationListener <ContextRefreshedEvent> {
+public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
     @Autowired
     private UniversidadeRepo universidadeRepo;
@@ -26,37 +26,78 @@ public class Bootstrap implements ApplicationListener <ContextRefreshedEvent> {
     @Autowired
     private QualificacaoRepo qualificacaoRepo;
 
-    private Logger logger= LoggerFactory.getLogger(this.getClass());
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
-    public void onApplicationEvent (ContextRefreshedEvent contextRefreshedEvent){
+    public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
 
         logger.info("Startup");
 
-        Universidade universidade1= new Universidade( "UFP");
+        Idioma idioma1 = new Idioma("Português");
+        Qualificacao qualificacao1 = new Qualificacao("Mestre");
+        Qualificacao qualificacao2 = new Qualificacao("Doutor");
+        Universidade universidade1 = new Universidade("UFP");
 
         Faculdade faculdade1 = new Faculdade("Faculdade de Ciencias", universidade1);
 
-        Curso curso1 = new Curso("Engenharia Informática", 1, faculdade1);
-        Curso curso2 = new Curso("Ciencias da Comunicação", 2, faculdade1);
+        universidade1.addFaculdade(faculdade1);
 
-        Cadeira cadeira1 = new Cadeira("Engenharia Software", 1, curso1);
+        Curso curso1 = new Curso("Engenharia Informática", 1);
+        Curso curso2 = new Curso("Ciencias da Comunicação", 2);
 
-        Aluno aluno1 = new Aluno("Ricardo", 35249 , curso1);
+        faculdade1.addCurso(curso1);
+        faculdade1.addCurso(curso2);
 
-        Idioma idioma1= new Idioma("Português");
+        Cadeira cadeira1 = new Cadeira("Engenharia Software", 1);
+        Cadeira cadeira2 = new Cadeira("Gramatica da Comunicacao", 2);
 
-        Qualificacao qualificacao1= new Qualificacao(" Mestre");
 
-        Professor professor1 = new Professor("Alessandro", 11111, cadeira1, idioma1, qualificacao1);
+        Professor professor1 = new Professor("Alessandro Moreira", 11111);
+        Professor professor2 = new Professor("Rui Estrada", 11121);
+        Professor professor3 = new Professor("Feliz Gouveia", 11145);
 
+        idioma1.addProfessor(professor1);
+        idioma1.addProfessor(professor2);
+        idioma1.addProfessor(professor3);
+        qualificacao1.addProfessor(professor1);
+        qualificacao2.addProfessor(professor2);
+        qualificacao2.addProfessor(professor3);
+        cadeira1.addProfessor(professor1);
+        cadeira1.addProfessor(professor3);
+        cadeira2.addProfessor(professor2);
+        cadeira1.associateCurso(curso1);
+        cadeira2.associateCurso(curso2);
+        professor1.associateQualificacao(qualificacao1);
+        professor1.addCadeira(cadeira1);
+        professor1.addidioma(idioma1);
+        professor2.associateQualificacao(qualificacao2);
+        professor2.addCadeira(cadeira2);
+        professor2.addidioma(idioma1);
+        professor3.associateQualificacao(qualificacao2);
+        professor3.addCadeira(cadeira1);
+        professor3.addidioma(idioma1);
+
+        Aluno aluno1 = new Aluno("Ricardo", 35249);
+        Aluno aluno2 = new Aluno("Diogo", 35245);
+        Aluno aluno3 = new Aluno("Catarina", 35987);
+
+        aluno1.associateCurso(curso1);
+        aluno2.associateCurso(curso1);
+        aluno3.associateCurso(curso2);
+        curso1.addAluno(aluno1);
+        curso1.addAluno(aluno2);
+        curso1.addCadeira(cadeira1);
+        curso1.addCadeira(cadeira2);
+        curso1.associateFaculdade(faculdade1);
+        curso2.addAluno(aluno3);
+        curso2.addCadeira(cadeira2);
+        curso2.associateFaculdade(faculdade1);
 
 
         this.universidadeRepo.save(universidade1);
         this.idiomaRepo.save(idioma1);
         this.qualificacaoRepo.save(qualificacao1);
-
-
+        this.qualificacaoRepo.save(qualificacao2);
 
 
     }

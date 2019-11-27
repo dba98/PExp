@@ -1,6 +1,5 @@
 package com.plataforma.explicacoes.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
@@ -19,9 +18,13 @@ public class Qualificacao {
 
     @OneToMany
     @JsonManagedReference
-    private Set<Professor> professor = new HashSet<>();
+    private Set<Professor> professores = new HashSet<>();
 
     public Qualificacao(String name) {
         this.setName(name);
+    }
+
+    public void addProfessor(Professor professor){
+        this.professores.add(professor);
     }
 }

@@ -21,7 +21,6 @@ public class Aluno {
     private int num;
     private String name;
 
-    
    @ManyToOne
    @EqualsAndHashCode.Exclude
    @ToString.Exclude
@@ -32,12 +31,16 @@ public class Aluno {
     @JsonManagedReference
     private Set<Atendimento> atendimentos = new HashSet<>();
 
-    public Aluno(String name, int num, Curso curso) {
+    public Aluno(String name, int num) {
         this.setName(name);
         this.setNum(num);
-        this.setCurso(curso);
-        curso.getAlunos().add(this);
     }
+
+    public void associateCurso(Curso curso){
+        this.setCurso(curso);
+    }
+
+
 
 
 }
