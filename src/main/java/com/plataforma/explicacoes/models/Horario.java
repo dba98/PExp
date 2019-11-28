@@ -3,6 +3,7 @@ package com.plataforma.explicacoes.models;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
@@ -10,7 +11,7 @@ import java.util.Date;
 
 @Data
 @Entity
-
+@NoArgsConstructor
 public class Horario {
 
     @Id

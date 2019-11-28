@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
@@ -12,6 +13,7 @@ import java.util.Set;
 
 @Data
 @Entity
+@NoArgsConstructor
 public class Curso {
 
     @Id
@@ -39,6 +41,8 @@ public class Curso {
         this.setNome(nome);
         this.setCodigo(codigo);
     }
+
+
     public void addAluno(Aluno aluno){
         this.alunos.add(aluno);
     }
