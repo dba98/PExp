@@ -29,5 +29,16 @@ public class AlunoService {
 
     }
 
+    public Optional<Aluno> findByName( String name){
 
+        return this.alunoRepo.findByName(name);
+    }
+
+    public Optional<Aluno> createAluno (Aluno aluno){
+        Optional<Aluno> optionalAluno = this.alunoRepo.findByName(aluno.getName());
+        if(optionalAluno.isEmpty()){
+            return Optional.of(this.alunoRepo.save(aluno));
+        }
+        return Optional.empty();
+    }
 }
