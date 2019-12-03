@@ -1,8 +1,11 @@
 package com.plataforma.explicacoes.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.plataforma.explicacoes.models.Aluno;
+import com.plataforma.explicacoes.models.Horario;
 import com.plataforma.explicacoes.models.Professor;
 import com.plataforma.explicacoes.services.ProfessorService;
+import org.apache.tomcat.util.json.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +22,7 @@ import java.util.Optional;
 public class ProfessorController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-
+    private ObjectMapper objectMapper;
     @Autowired
     private ProfessorService professorService;
 
@@ -39,14 +42,23 @@ public class ProfessorController {
         }
         throw new ProfessorController.NoProfessorException(id);
     }
-    @PostMapping(value = "/" ,produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+
+    @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Professor> createProfessor(@RequestBody Professor professor) throws ProfessorAlreadyExistsException {
         Optional<Professor> optionalProfessor = this.professorService.createProfessor(professor);
-        if(optionalProfessor.isEmpty()){
+        if (optionalProfessor.isEmpty()) {
             throw new ProfessorAlreadyExistsException(professor.getName());
         }
         return ResponseEntity.ok(optionalProfessor.get());
     }
+
+    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Horario> createHorario(@RequestBody String jsonString) {
+        JSONParser parser = new JSONParser(jsonString);
+
+        return null;
+    }
+
     private class NoProfessorException extends Throwable {
         public NoProfessorException(Long id) {
             super("No such Professor with id: " + id);

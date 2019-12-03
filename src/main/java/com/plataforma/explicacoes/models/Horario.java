@@ -7,7 +7,10 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.lang.reflect.Array;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 @Data
 @Entity
@@ -17,7 +20,10 @@ public class Horario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Date dia;
+    private LocalDate dia;
+    private LocalDateTime hInicio;
+    private LocalDateTime hFim;
+
 
     @ManyToOne
     @EqualsAndHashCode.Exclude
@@ -25,8 +31,10 @@ public class Horario {
     @JsonBackReference
     private Professor professor;
 
-    public Horario (Date dia, Professor professor){
+    public Horario (LocalDate dia, Professor professor,LocalDateTime hInicio,LocalDateTime hFim){
         this.setDia(dia);
         this.setProfessor(professor);
+        this.setHInicio(hInicio);
+        this.setHFim(hFim);
     }
 }
