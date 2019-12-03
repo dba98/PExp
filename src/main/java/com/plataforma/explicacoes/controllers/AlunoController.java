@@ -52,8 +52,6 @@ public class AlunoController {
         throw new NoAlunoException(name);
     }
 
-<<<<<<< HEAD
-=======
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Aluno> createAluno (@RequestBody Aluno aluno){
         Optional <Aluno> optionalAluno = this.alunoService.createAluno(aluno);
@@ -64,8 +62,6 @@ public class AlunoController {
         throw new AlunoAlreadyExistsException(aluno.getName());
     }
 
-
->>>>>>> Ricardo
 
 
 
