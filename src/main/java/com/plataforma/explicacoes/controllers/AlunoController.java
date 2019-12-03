@@ -27,7 +27,6 @@ public class AlunoController {
     @RequestMapping (method = RequestMethod.GET)
     public ResponseEntity<Iterable<Aluno>> getAllAluno(){
         this.logger.info("Received a get request");
-
         return ResponseEntity.ok(this.alunoService.findAll());
     }
 
@@ -41,17 +40,6 @@ public class AlunoController {
         }
         throw  new NoAlunoException(id);
     }
-
-    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Aluno> createAluno (@RequestBody Client client){
-        Optional <Aluno> optionalAluno = this.alunoService.createClient(client);
-        if(optionalAluno.isPresent()){
-            return ResponseEntity.ok(optionalAluno.get());
-        }
-
-        throw
-    }
-
 
 
 
