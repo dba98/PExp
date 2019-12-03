@@ -1,4 +1,4 @@
-package com.plataforma.explicacoes.services.filters;
+package com.plataforma.explicacoes.services;
 
 import com.plataforma.explicacoes.models.Faculdade;
 import com.plataforma.explicacoes.repositories.FaculdadeRepo;
