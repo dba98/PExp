@@ -1,6 +1,7 @@
 package com.plataforma.explicacoes.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -23,25 +24,26 @@ public class Professor {
     private int num;
 
     @OneToMany(mappedBy = "professor")
-    @JsonManagedReference
+    @JsonManagedReference(value = "professores_atendimentos")
     private Set<Atendimento> atendimentos = new HashSet<>();
 
     @ManyToMany
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @JsonBackReference
+//    @JsonManagedReference(value = "professor_idioma")
     private Set<Idioma> idiomas = new HashSet<>();
 
     @ManyToMany
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @JsonBackReference
+//    @JsonManagedReference(value = "professor_cadeira")
+    @JsonIgnore
     private Set<Cadeira> cadeiras = new HashSet<>();
 
     @ManyToOne
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @JsonBackReference
+   // @JsonManagedReference(value = "professor_qualificacao")
     private Qualificacao grau;
 
     public Professor(String name, int num) {

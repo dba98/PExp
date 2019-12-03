@@ -30,13 +30,13 @@ public class Atendimento {
     @ManyToOne
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @JsonBackReference
+    @JsonBackReference(value = "professores_atendimentos")
     private Professor professor;
 
     @ManyToOne
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @JsonBackReference
+    @JsonBackReference(value = "alunos_atendimentos")
     private Aluno aluno;
 
     public Atendimento (Date dinicio, Date dfim, Professor professor, Aluno aluno, Cadeira cadeira){

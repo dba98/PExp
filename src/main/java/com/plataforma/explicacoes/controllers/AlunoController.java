@@ -30,7 +30,7 @@ public class AlunoController {
         return ResponseEntity.ok(this.alunoService.findAll());
     }
 
-    @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public  ResponseEntity<Aluno> getAlunoById (@PathVariable("id") Long id) throws NoAlunoException {
         this.logger.info("Received a get request");
 

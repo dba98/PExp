@@ -1,5 +1,6 @@
 package com.plataforma.explicacoes.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,8 @@ public class Qualificacao {
     private String name;
 
     @OneToMany
-    @JsonManagedReference
+   // @JsonManagedReference(value = "professor_qualificacao")
+    @JsonIgnore
     private Set<Professor> professores = new HashSet<>();
 
     public Qualificacao(String name) {

@@ -26,15 +26,15 @@ public class Curso {
     @ManyToOne
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @JsonBackReference
+    @JsonBackReference(value = "faculdade_curso")
     private Faculdade faculdade;
 
     @OneToMany(mappedBy = "curso", cascade = CascadeType.PERSIST)
-    @JsonManagedReference
+    @JsonManagedReference(value = "curso_cadeira")
     private Set<Cadeira> cadeiras = new HashSet<>();
 
     @OneToMany(mappedBy = "curso", cascade = CascadeType.PERSIST)
-    @JsonManagedReference
+    @JsonManagedReference(value = "curso_alunos")
     private Set<Aluno> alunos = new HashSet<>();
 
     public Curso(String nome, Integer codigo) {

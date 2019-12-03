@@ -1,6 +1,7 @@
 package com.plataforma.explicacoes.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -26,11 +27,12 @@ public class Cadeira {
     @ManyToOne()
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @JsonBackReference
+    @JsonBackReference(value = "curso_cadeira")
     private Curso curso;
 
     @ManyToMany(mappedBy = "cadeiras",cascade = CascadeType.PERSIST)
-    @JsonManagedReference
+//    @JsonBackReference(value = "professor_cadeira")
+    @JsonIgnore
     private Set<Professor> professores=new HashSet<>();
 
     public Cadeira(String name, Integer codigo) {
