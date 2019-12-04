@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -23,6 +24,7 @@ public class Idioma {
 
     @ManyToMany
     //@JsonBackReference(value = "professor_idioma")
+    @ToString.Exclude
     @JsonIgnore
     private Set<Professor> professores = new HashSet<>();
 
