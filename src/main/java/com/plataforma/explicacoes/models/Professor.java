@@ -39,7 +39,7 @@ public class Professor {
     @JsonIgnore
     private Set<Cadeira> cadeiras = new HashSet<>();
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @JsonManagedReference(value = "professores_horarios")
@@ -68,5 +68,8 @@ public class Professor {
         this.setGrau(grau);
     }
 
+    public void addHorario(Horario horario) {
+        this.horarios.add(horario);
+    }
 
 }

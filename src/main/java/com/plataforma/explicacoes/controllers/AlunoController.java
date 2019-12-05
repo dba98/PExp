@@ -1,8 +1,8 @@
 package com.plataforma.explicacoes.controllers;
 
-import ch.qos.logback.core.net.server.Client;
+
 import com.plataforma.explicacoes.models.Aluno;
-import com.plataforma.explicacoes.repositories.AlunoRepo;
+
 import com.plataforma.explicacoes.services.AlunoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
