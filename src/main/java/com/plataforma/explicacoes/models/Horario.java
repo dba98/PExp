@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.DayOfWeek;
 import java.time.LocalTime;
 
 
@@ -19,7 +19,7 @@ public class Horario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDate dia;
+    private DayOfWeek dia;
     private LocalTime hInicio;
     private LocalTime hFim;
 
@@ -30,7 +30,7 @@ public class Horario {
     @JsonBackReference
     private Professor professor;
 
-    public Horario (LocalDate dia, Professor professor,LocalTime hInicio,LocalTime hFim){
+    public Horario (DayOfWeek dia, Professor professor,LocalTime hInicio,LocalTime hFim){
         this.setDia(dia);
         this.setProfessor(professor);
         this.setHInicio(hInicio);

@@ -1,15 +1,10 @@
 package com.plataforma.explicacoes.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.util.JSONPObject;
-import com.plataforma.explicacoes.models.Aluno;
-import com.plataforma.explicacoes.models.Horario;
+
 import com.plataforma.explicacoes.models.Professor;
 import com.plataforma.explicacoes.services.ProfessorService;
-import javafx.collections.ArrayChangeListener;
-import org.apache.tomcat.jni.Local;
-import org.apache.tomcat.util.json.JSONParser;
-import org.apache.tomcat.util.json.ParseException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +12,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.Optional;
 
 
@@ -61,12 +51,12 @@ public class ProfessorController {
     }
 
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Horario> createHorario(@RequestBody String jsonString){
-        Optional<Horario> optionalHorario = this.professorService.createHorario(jsonString);
-        if (optionalHorario.isEmpty()) {
-
+    public ResponseEntity<Professor> createHorario(@RequestBody String jsonString) throws ConflictedHorarioException {
+        Optional<Professor> optionalProfessor = this.professorService.createHorario(jsonString);
+        if (optionalProfessor.isEmpty()) {
+            throw new ConflictedHorarioException("");
         }
-        return ResponseEntity.ok(optionalHorario.get());
+        return ResponseEntity.ok(optionalProfessor.get());
     }
 
     private class NoProfessorException extends Throwable {
@@ -79,6 +69,12 @@ public class ProfessorController {
     private class ProfessorAlreadyExistsException extends Throwable {
         public ProfessorAlreadyExistsException(String name) {
             super("Professor Already Exists");
+        }
+    }
+
+    private class ConflictedHorarioException extends Throwable {
+        public ConflictedHorarioException(String s) {
+            super("Horario Sobreposto");
         }
     }
 }
