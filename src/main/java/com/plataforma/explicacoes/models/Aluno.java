@@ -39,6 +39,7 @@ public class Aluno {
     }
 
     public void associateCurso(Curso curso){
+
         this.setCurso(curso);
     }
 
