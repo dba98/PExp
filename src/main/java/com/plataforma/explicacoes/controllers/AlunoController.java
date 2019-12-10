@@ -1,8 +1,6 @@
 package com.plataforma.explicacoes.controllers;
 
-
 import com.plataforma.explicacoes.models.Aluno;
-
 import com.plataforma.explicacoes.services.AlunoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

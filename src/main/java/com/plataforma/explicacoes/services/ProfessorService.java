@@ -87,8 +87,18 @@ public class ProfessorService {
                 }
 
         }
-        Horario createdHorario = new Horario(dia, auxProfessor.get(), LocalTime.parse(hInicio), LocalTime.parse(hFim));
+        /*Horario createdHorario = new Horario(auxProfessor.get(), dia, LocalTime.parse(hInicio), LocalTime.parse(hFim));
         auxProfessor.get().addHorario(createdHorario);
+
+        this.professorRepo.save(auxProfessor.get());
+
+        System.out.println(createdHorario);
+        System.out.println(createdHorario.getProfessor());
+
+        System.out.println(auxProfessor.get().getHorarios());*/
+
+
+
         return auxProfessor;
 
     }

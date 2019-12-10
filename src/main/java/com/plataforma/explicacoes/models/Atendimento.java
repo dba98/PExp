@@ -1,6 +1,4 @@
 package com.plataforma.explicacoes.models;
-
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
