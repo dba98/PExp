@@ -1,6 +1,5 @@
 package com.plataforma.explicacoes.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
@@ -29,7 +28,7 @@ public class Professor {
 
     @ManyToMany
     @EqualsAndHashCode.Exclude
-    @ToString.Exclude
+    //@ToString.Exclude
 //    @JsonManagedReference(value = "professor_idioma")
     private Set<Idioma> idiomas = new HashSet<>();
 
@@ -40,10 +39,16 @@ public class Professor {
     @JsonIgnore
     private Set<Cadeira> cadeiras = new HashSet<>();
 
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonManagedReference(value = "professores_horarios")
+    private Set<Horario> horarios = new HashSet<>();
+
     @ManyToOne
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-   // @JsonManagedReference(value = "professor_qualificacao")
+    // @JsonManagedReference(value = "professor_qualificacao")
     private Qualificacao grau;
 
     public Professor(String name, int num) {
@@ -51,15 +56,20 @@ public class Professor {
         this.setNum(num);
     }
 
-    public void addCadeira(Cadeira cadeira){
+    public void addCadeira(Cadeira cadeira) {
         this.cadeiras.add(cadeira);
     }
-    public void addidioma(Idioma idioma){
+
+    public void addIdioma(Idioma idioma) {
         this.idiomas.add(idioma);
     }
-    public void associateQualificacao(Qualificacao grau){
+
+    public void associateQualificacao(Qualificacao grau) {
         this.setGrau(grau);
     }
 
+    public void addHorario(Horario horario) {
+        this.horarios.add(horario);
+    }
 
 }

@@ -1,8 +1,10 @@
 package com.plataforma.explicacoes.controllers;
 
-import com.plataforma.explicacoes.models.Aluno;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.plataforma.explicacoes.models.Professor;
 import com.plataforma.explicacoes.services.ProfessorService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +12,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Optional;
 
 
@@ -19,7 +20,7 @@ import java.util.Optional;
 public class ProfessorController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-
+    private ObjectMapper objectMapper;
     @Autowired
     private ProfessorService professorService;
 
@@ -39,14 +40,25 @@ public class ProfessorController {
         }
         throw new ProfessorController.NoProfessorException(id);
     }
-    @PostMapping(value = "/" ,produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+
+    @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Professor> createProfessor(@RequestBody Professor professor) throws ProfessorAlreadyExistsException {
         Optional<Professor> optionalProfessor = this.professorService.createProfessor(professor);
-        if(optionalProfessor.isEmpty()){
+        if (optionalProfessor.isEmpty()) {
             throw new ProfessorAlreadyExistsException(professor.getName());
         }
         return ResponseEntity.ok(optionalProfessor.get());
     }
+
+    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Professor> createHorario(@RequestBody String jsonString) throws ConflictedHorarioException {
+        Optional<Professor> optionalProfessor = this.professorService.createHorario(jsonString);
+        if (optionalProfessor.isEmpty()) {
+            throw new ConflictedHorarioException("");
+        }
+        return ResponseEntity.ok(optionalProfessor.get());
+    }
+
     private class NoProfessorException extends Throwable {
         public NoProfessorException(Long id) {
             super("No such Professor with id: " + id);
@@ -57,6 +69,12 @@ public class ProfessorController {
     private class ProfessorAlreadyExistsException extends Throwable {
         public ProfessorAlreadyExistsException(String name) {
             super("Professor Already Exists");
+        }
+    }
+
+    private class ConflictedHorarioException extends Throwable {
+        public ConflictedHorarioException(String s) {
+            super("Horario Sobreposto");
         }
     }
 }
