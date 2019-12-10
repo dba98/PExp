@@ -13,7 +13,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -33,16 +36,15 @@ class FaculdadeControllerTest {
     void createFaculdade() throws Exception {
         Universidade uni = new Universidade("UFP");
         Faculdade faculdade = new Faculdade("Faculdade Medicina Dentaria",uni);
-        //faculdade.setId(1L);
+
         String jsonRequest=this.objectMapper.writeValueAsString(faculdade);
 
-        System.out.println(jsonRequest);
+        when(this.faculdadeService.createFaculdade(faculdade)).thenReturn(Optional.of(faculdade));
 
         this.mockMvc.perform(
                 post("/faculdade").contentType(MediaType.APPLICATION_JSON_VALUE).content(jsonRequest)
         ).andExpect(
                 status().isOk()
         );
-
     }
 }
