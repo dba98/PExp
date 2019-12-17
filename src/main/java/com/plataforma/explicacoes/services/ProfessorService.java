@@ -10,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.time.DayOfWeek;
 
 @Service
@@ -52,33 +49,10 @@ public class ProfessorService {
     }
 
 
-    public Optional<Professor> jsonParsing(String jsonString) {
-        JSONParser parser = new JSONParser(jsonString);
-        String hInicio = "", hFim = "", professorId = "", auxdia = "";
-        DayOfWeek dia = null;
-        ArrayList<String> individualValues = new ArrayList<>();
-        while (!parser.getNextToken().toString().isEmpty()) {
-            individualValues.add(parser.getNextToken().toString().replaceAll("\"", ""));
-        }
-        for (int i = 0; i < individualValues.size(); i++) {
-            switch (i) {
-                case 1:
-                    professorId = individualValues.get(i);
-                    break;
-                case 3:
-                    auxdia = individualValues.get(i);
-                    dia = DayOfWeek.of(Integer.parseInt(auxdia));
-                    break;
-                case 5:
-                    hInicio = individualValues.get(i);
-                    break;
-                case 7:
-                    hFim = individualValues.get(i);
-                    break;
-            }
-        }
+    public Optional<Professor> jsonParsing(Map<String,string> jsonString) {
 
-        Optional<Professor> auxProfessor = this.findById(Long.parseLong(professorId, 10));
+
+        Optional<Professor> auxProfessor = this.findById(Long.parseLong(, 10));
 
         for (Horario horario : auxProfessor.get().getHorarios()) {
             if (horario.getDia().getValue() == dia.getValue())
