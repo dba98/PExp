@@ -11,13 +11,12 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+
 @Service
 public class FaculdadeService {
 
     @Autowired
     private FaculdadeRepo faculdadeRepo;
-
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public Set<Faculdade> findAll(){
         Set<Faculdade> faculdades = new HashSet<>();
@@ -26,7 +25,7 @@ public class FaculdadeService {
         return faculdades;
     }
 
-    public Optional<Faculdade> finsById(Long id){
+    public Optional<Faculdade> findById(Long id){
         return this.faculdadeRepo.findById(id);
     }
 
@@ -35,8 +34,6 @@ public class FaculdadeService {
     }
 
     public Optional<Faculdade> createFaculdade(Faculdade faculdade){
-        this.logger.info("Estou aqui");
-        this.logger.info(faculdade.toString());
         Optional<Faculdade> optionalFaculdade = this.faculdadeRepo.findByName(faculdade.getName());
         if(optionalFaculdade.isEmpty())
             return  Optional.of(this.faculdadeRepo.save(faculdade));
