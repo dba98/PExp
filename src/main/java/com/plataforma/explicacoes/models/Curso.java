@@ -42,6 +42,16 @@ public class Curso {
         this.setCodigo(codigo);
     }
 
+    public Curso(Long id,String nome, Integer codigo, Faculdade faculdade, Set<Cadeira> cadeiras, Set<Aluno> alunos) {
+        this.id=id;
+        this.nome = nome;
+        this.codigo = codigo;
+        this.associateFaculdade(faculdade);
+        for(Cadeira cadeira: cadeiras)
+            this.addCadeira(cadeira);
+        for(Aluno aluno: alunos)
+            this.addAluno(aluno);
+    }
 
     public void addAluno(Aluno aluno){
         this.alunos.add(aluno);
