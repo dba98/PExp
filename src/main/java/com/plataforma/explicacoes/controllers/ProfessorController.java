@@ -1,11 +1,8 @@
 package com.plataforma.explicacoes.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import com.plataforma.explicacoes.models.Horario;
 import com.plataforma.explicacoes.models.Professor;
 import com.plataforma.explicacoes.services.ProfessorService;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.DayOfWeek;
-import java.time.LocalTime;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -55,11 +51,11 @@ public class ProfessorController {
     }
 
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Professor> createHorario(@RequestBody Horario jsonHorario, DayOfWeek dia, String hinicio, String hFim) throws ConflictedHorarioException {
+    public ResponseEntity<Professor> createHorario(@RequestBody Map<String, String> jsonHorario) throws ConflictedHorarioException {
         System.out.println(jsonHorario);
 
-        String teste = "";
-        Optional<Professor> optionalProfessor = this.professorService.createHorario(teste);
+
+        Optional<Professor> optionalProfessor = this.professorService.createHorario(jsonHorario);
         if (optionalProfessor.isEmpty()) {
             throw new ConflictedHorarioException("");
         }
