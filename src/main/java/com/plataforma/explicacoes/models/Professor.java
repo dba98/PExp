@@ -62,19 +62,14 @@ public class Professor {
         this.setId(id);
         this.setName(name);
         this.setNum(num);
-        this.associateQualificacao(grau);
-        for(Atendimento atendimento: atendimentos)
-            this.addAtendimento(atendimento);
-        for(Cadeira cadeira: cadeiras)
-            this.addCadeira(cadeira);
-        for(Idioma idioma: idiomas)
-            this.addIdioma(idioma);
-        for(Horario horario:horarios)
+        this.setGrau(grau);
+        this.setAtendimentos(atendimentos);
+        this.setCadeiras(cadeiras);
+        this.setIdiomas(idiomas);
+//        this.setHorarios(horarios);
+        for(Horario horario:horarios){
             this.addHorario(horario);
-    }
-
-    public void addAtendimento(Atendimento atendimento){
-        this.atendimentos.add(atendimento);
+        }
     }
 
     public void addCadeira(Cadeira cadeira) {
