@@ -1,7 +1,9 @@
 package com.plataforma.explicacoes;
 
 import com.plataforma.explicacoes.models.*;
+import com.plataforma.explicacoes.models.builders.ProfessorBuilder;
 import com.plataforma.explicacoes.repositories.IdiomaRepo;
+import com.plataforma.explicacoes.repositories.ProfessorRepo;
 import com.plataforma.explicacoes.repositories.QualificacaoRepo;
 import com.plataforma.explicacoes.repositories.UniversidadeRepo;
 import org.slf4j.Logger;
@@ -12,6 +14,8 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
+import java.time.DayOfWeek;
+import java.time.LocalTime;
 
 @Component
 @Transactional
@@ -26,6 +30,9 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
     @Autowired
     private QualificacaoRepo qualificacaoRepo;
 
+    @Autowired
+    private ProfessorRepo professorRepo;
+
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
@@ -34,8 +41,9 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
         logger.info("Startup");
 
         Idioma idioma1 = new Idioma("Português");
-        Qualificacao qualificacao1 = new Qualificacao("Mestre");
-        Qualificacao qualificacao2 = new Qualificacao("Doutor");
+        Qualificacao qualificacao1 = new Qualificacao("Mestre",3);
+        Qualificacao qualificacao2 = new Qualificacao("Doutor",2);
+        Qualificacao qualificacao3 = new Qualificacao("Licenciado",1);
         Universidade universidade1 = new Universidade("UFP");
 
         Faculdade faculdade1 = new Faculdade("Faculdade de Ciencias", universidade1);
@@ -52,30 +60,37 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
         Cadeira cadeira2 = new Cadeira("Gramatica da Comunicacao", 2);
 
 
-        Professor professor1 = new Professor("Alessandro Moreira", 11111);
-        Professor professor2 = new Professor("Rui Estrada", 11121);
-        Professor professor3 = new Professor("Feliz Gouveia", 11145);
+        //Professor professor1 = new Professor("Alessandro Moreira", 11111);
+        //Professor professor2 = new Professor("Rui Estrada", 11121);
+        //Professor professor3 = new Professor("Feliz Gouveia", 11145);
 
-        idioma1.addProfessor(professor1);
-        idioma1.addProfessor(professor2);
-        idioma1.addProfessor(professor3);
-        qualificacao1.addProfessor(professor1);
-        qualificacao2.addProfessor(professor2);
-        qualificacao2.addProfessor(professor3);
-        cadeira1.addProfessor(professor1);
-        cadeira1.addProfessor(professor3);
-        cadeira2.addProfessor(professor2);
+        Professor professor1 = new ProfessorBuilder().setName("Alessandro Moreira").setNum(11111).
+                setGrau(qualificacao1).addIdioma(idioma1).addCadeira(cadeira1).build();
+        Professor professor2= new ProfessorBuilder().setName("Rui Estrada").setNum(11121).
+                setGrau(qualificacao2).addIdioma(idioma1).addCadeira(cadeira2).build();
+        Professor professor3= new ProfessorBuilder().setName("Feliz Gouveia").setNum(11145).
+                setGrau(qualificacao2).addHorario(new Horario(DayOfWeek.MONDAY,LocalTime.of(10,0), LocalTime.of(12,0))).addIdioma(idioma1).addCadeira(cadeira1).build();
+
+        //idioma1.addProfessor(professor1);
+        //idioma1.addProfessor(professor2);
+        //idioma1.addProfessor(professor3);
+        //qualificacao1.addProfessor(professor1);
+        //qualificacao2.addProfessor(professor2);
+        //qualificacao2.addProfessor(professor3);
+        //cadeira1.addProfessor(professor1);
+        //cadeira1.addProfessor(professor3);
+        //cadeira2.addProfessor(professor2);
         cadeira1.associateCurso(curso1);
         cadeira2.associateCurso(curso2);
-        professor1.associateQualificacao(qualificacao1);
-        professor1.addCadeira(cadeira1);
-        professor1.addIdioma(idioma1);
-        professor2.associateQualificacao(qualificacao2);
-        professor2.addCadeira(cadeira2);
-        professor2.addIdioma(idioma1);
-        professor3.associateQualificacao(qualificacao2);
-        professor3.addCadeira(cadeira1);
-        professor3.addIdioma(idioma1);
+        //professor1.associateQualificacao(qualificacao1);
+        //professor1.addCadeira(cadeira1);
+        //professor1.addIdioma(idioma1);
+        //professor2.associateQualificacao(qualificacao2);
+        //professor2.addCadeira(cadeira2);
+        //professor2.addIdioma(idioma1);
+        //professor3.associateQualificacao(qualificacao2);
+        //professor3.addCadeira(cadeira1);
+        //professor3.addIdioma(idioma1);
 
         Aluno aluno1 = new Aluno("Ricardo", 35249);
         Aluno aluno2 = new Aluno("Diogo", 35245);
@@ -98,7 +113,9 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
         this.idiomaRepo.save(idioma1);
         this.qualificacaoRepo.save(qualificacao1);
         this.qualificacaoRepo.save(qualificacao2);
-
+        this.professorRepo.save(professor1);
+        this.professorRepo.save(professor2);
+        this.professorRepo.save(professor3);
 
     }
 }

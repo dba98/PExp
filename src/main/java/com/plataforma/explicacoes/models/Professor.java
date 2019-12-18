@@ -1,5 +1,6 @@
 package com.plataforma.explicacoes.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
@@ -35,14 +36,15 @@ public class Professor {
     @ManyToMany
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-//    @JsonManagedReference(value = "professor_cadeira")
-    @JsonIgnore
+    @JsonBackReference(value = "professor_cadeira")
+   // @JsonIgnore
     private Set<Cadeira> cadeiras = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.PERSIST)
     @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    @JsonManagedReference(value = "professores_horarios")
+    //@ToString.Exclude
+    @JsonBackReference(value = "professores_horarios")
+   // @JsonIgnore
     private Set<Horario> horarios = new HashSet<>();
 
     @ManyToOne
@@ -54,6 +56,20 @@ public class Professor {
     public Professor(String name, int num) {
         this.setName(name);
         this.setNum(num);
+    }
+
+    public Professor(Long id, String name, int num, Qualificacao grau, Set<Atendimento> atendimentos, Set<Idioma> idiomas, Set<Cadeira> cadeiras, Set<Horario> horarios) {
+        this.setId(id);
+        this.setName(name);
+        this.setNum(num);
+        this.setGrau(grau);
+        this.setAtendimentos(atendimentos);
+        this.setCadeiras(cadeiras);
+        this.setIdiomas(idiomas);
+//        this.setHorarios(horarios);
+        for(Horario horario:horarios){
+            this.addHorario(horario);
+        }
     }
 
     public void addCadeira(Cadeira cadeira) {
@@ -69,7 +85,9 @@ public class Professor {
     }
 
     public void addHorario(Horario horario) {
+        horario.setProfessor(this);
         this.horarios.add(horario);
+
     }
 
 }

@@ -39,8 +39,8 @@ class UniversidadeRepoTest {
     public void test() {
 
         Idioma idioma1= new Idioma("Português");
-        Qualificacao qualificacao1= new Qualificacao("Mestre");
-        Qualificacao qualificacao2= new Qualificacao("Doutor");
+        Qualificacao qualificacao1= new Qualificacao("Mestre",3);
+        Qualificacao qualificacao2= new Qualificacao("Doutor",2);
         Universidade universidade1= new Universidade( "UFP");
 
         Faculdade faculdade1 = new Faculdade("Faculdade de Ciencias", universidade1);
