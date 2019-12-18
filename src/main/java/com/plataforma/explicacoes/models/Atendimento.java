@@ -38,7 +38,6 @@ public class Atendimento {
     private Aluno aluno;
 
     public Atendimento (LocalDate date, LocalTime hinicio, LocalTime hfim, Professor professor, Aluno aluno, Cadeira cadeira){
-
         this.setDate(date);
         this.setDinicio(hinicio);
         this.setDfim(hfim);
@@ -46,5 +45,6 @@ public class Atendimento {
         this.setCadeira(cadeira);
         this.setAluno(aluno);
     }
+
 }
 

@@ -1,11 +1,9 @@
 package com.plataforma.explicacoes;
 
 import com.plataforma.explicacoes.models.*;
+import com.plataforma.explicacoes.models.builders.AtendimentoBuilder;
 import com.plataforma.explicacoes.models.builders.ProfessorBuilder;
-import com.plataforma.explicacoes.repositories.IdiomaRepo;
-import com.plataforma.explicacoes.repositories.ProfessorRepo;
-import com.plataforma.explicacoes.repositories.QualificacaoRepo;
-import com.plataforma.explicacoes.repositories.UniversidadeRepo;
+import com.plataforma.explicacoes.repositories.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Component
@@ -32,6 +31,9 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
     @Autowired
     private ProfessorRepo professorRepo;
+
+    @Autowired
+    private AtendimentoRepo atendimentoRepo;
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -109,6 +111,14 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
         curso2.addCadeira(cadeira2);
         curso2.associateFaculdade(faculdade1);
 
+        Atendimento atendimento1= new AtendimentoBuilder().setDate(LocalDate.now()).setDinicio(LocalTime.of(10,00)).
+                setDfim(LocalTime.of(11,00)).setAluno(aluno1).setProfessor(professor1).
+                setCadeira(cadeira1).build();
+        Atendimento atendimento2= new AtendimentoBuilder().setDate(LocalDate.now()).setDinicio(LocalTime.of(12,00)).
+                setDfim(LocalTime.of(12,00)).setAluno(aluno2).setProfessor(professor2).
+                setCadeira(cadeira2).build();
+
+
 
         this.universidadeRepo.save(universidade1);
         this.idiomaRepo.save(idioma1);
@@ -117,6 +127,8 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
        /* this.professorRepo.save(professor1);
         this.professorRepo.save(professor2);
         this.professorRepo.save(professor3);*/
+       this.atendimentoRepo.save(atendimento1);
+       this.atendimentoRepo.save(atendimento2);
 
     }
 }
