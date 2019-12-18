@@ -20,9 +20,6 @@ public class ProfessorService {
     @Autowired
     private ProfessorRepo professorRepo;
 
-    @Autowired
-    private HorarioRepo horarioRepo;
-
     public Set<Professor> findAll() {
         Set<Professor> professores = new HashSet<>();
         for (Professor p1 : this.professorRepo.findAll()) {
@@ -63,7 +60,6 @@ public class ProfessorService {
                 }
         }
         Horario h= new Horario( DayOfWeek.of(Integer.parseInt(jsonHorario.get("dia"))), LocalTime.parse(jsonHorario.get("hInicio")), LocalTime.parse(jsonHorario.get("hFim")));
-        this.horarioRepo.save(h);
         optionalProfessor.get().addHorario(h);
 
         System.out.println(h);

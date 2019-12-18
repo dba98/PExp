@@ -3,6 +3,7 @@ package com.plataforma.explicacoes;
 import com.plataforma.explicacoes.models.*;
 import com.plataforma.explicacoes.models.builders.ProfessorBuilder;
 import com.plataforma.explicacoes.repositories.IdiomaRepo;
+import com.plataforma.explicacoes.repositories.ProfessorRepo;
 import com.plataforma.explicacoes.repositories.QualificacaoRepo;
 import com.plataforma.explicacoes.repositories.UniversidadeRepo;
 import org.slf4j.Logger;
@@ -13,6 +14,8 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
+import java.time.DayOfWeek;
+import java.time.LocalTime;
 
 @Component
 @Transactional
@@ -26,6 +29,9 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
     @Autowired
     private QualificacaoRepo qualificacaoRepo;
+
+    @Autowired
+    private ProfessorRepo professorRepo;
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -63,7 +69,7 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
         Professor professor2= new ProfessorBuilder().setName("Rui Estrada").setNum(11121).
                 setGrau(qualificacao2).addIdioma(idioma1).addCadeira(cadeira2).build();
         Professor professor3= new ProfessorBuilder().setName("Feliz Gouveia").setNum(11145).
-                setGrau(qualificacao2).addIdioma(idioma1).addCadeira(cadeira1).build();
+                setGrau(qualificacao2).addHorario(new Horario(DayOfWeek.MONDAY,LocalTime.of(10,0), LocalTime.of(12,0))).addIdioma(idioma1).addCadeira(cadeira1).build();
 
         //idioma1.addProfessor(professor1);
         //idioma1.addProfessor(professor2);
@@ -107,7 +113,9 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
         this.idiomaRepo.save(idioma1);
         this.qualificacaoRepo.save(qualificacao1);
         this.qualificacaoRepo.save(qualificacao2);
-
+        this.professorRepo.save(professor1);
+        this.professorRepo.save(professor2);
+        this.professorRepo.save(professor3);
 
     }
 }
