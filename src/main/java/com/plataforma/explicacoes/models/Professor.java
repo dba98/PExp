@@ -42,8 +42,8 @@ public class Professor {
 
     @OneToMany(cascade = CascadeType.PERSIST)
     @EqualsAndHashCode.Exclude
-    //@ToString.Exclude
-    @JsonBackReference(value = "professores_horarios")
+    @ToString.Exclude
+    @JsonManagedReference(value = "professores_horarios")
    // @JsonIgnore
     private Set<Horario> horarios = new HashSet<>();
 
