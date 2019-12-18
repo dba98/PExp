@@ -18,13 +18,16 @@ public class Qualificacao {
     private Long id;
     private String name;
 
+    private Integer val;
+
     @OneToMany
    // @JsonManagedReference(value = "professor_qualificacao")
     @JsonIgnore
     private Set<Professor> professores = new HashSet<>();
 
-    public Qualificacao(String name) {
+    public Qualificacao(String name, Integer val) {
         this.setName(name);
+        this.setVal(val);
     }
 
     public void addProfessor(Professor professor){
