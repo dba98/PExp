@@ -1,6 +1,9 @@
 package com.plataforma.explicacoes.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.plataforma.explicacoes.exceptions.ConflictedHorarioException;
+import com.plataforma.explicacoes.exceptions.ProfessorAlreadyExistException;
+import com.plataforma.explicacoes.exceptions.ProfessorDoesNotExistException;
 import com.plataforma.explicacoes.models.Professor;
 import com.plataforma.explicacoes.services.ProfessorService;
 import org.slf4j.Logger;
@@ -31,53 +34,34 @@ public class ProfessorController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Professor> getProfessorById(@PathVariable("id") Long id) throws NoProfessorException {
+    public ResponseEntity<Professor> getProfessorById(@PathVariable("id") Long id) throws ProfessorDoesNotExistException {
         this.logger.info("Received a get request");
 
         Optional<Professor> optionalProfessor = this.professorService.findById(id);
         if (optionalProfessor.isPresent()) {
             return ResponseEntity.ok(optionalProfessor.get());
         }
-        throw new ProfessorController.NoProfessorException(id);
+        throw new ProfessorDoesNotExistException("Professor Inexistente");
     }
 
     @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Professor> createProfessor(@RequestBody Professor professor) throws ProfessorAlreadyExistsException {
+    public ResponseEntity<Professor> createProfessor(@RequestBody Professor professor) throws ProfessorAlreadyExistException {
         Optional<Professor> optionalProfessor = this.professorService.createProfessor(professor);
         if (optionalProfessor.isEmpty()) {
-            throw new ProfessorAlreadyExistsException(professor.getName());
+            throw new ProfessorAlreadyExistException(professor.getName());
         }
         return ResponseEntity.ok(optionalProfessor.get());
     }
 
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Professor> createHorario(@RequestBody Map<String, String> jsonHorario) throws ConflictedHorarioException {
+    public ResponseEntity<Professor> createHorario(@RequestBody Map<String, String> jsonHorario) throws ConflictedHorarioException, ProfessorDoesNotExistException {
         System.out.println(jsonHorario);
 
 
         Optional<Professor> optionalProfessor = this.professorService.createHorario(jsonHorario);
         if (optionalProfessor.isEmpty()) {
-            throw new ConflictedHorarioException("");
+            throw new ConflictedHorarioException("Horario Sobreposto");
         }
         return ResponseEntity.ok(optionalProfessor.get());
-    }
-
-    private class NoProfessorException extends Throwable {
-        public NoProfessorException(Long id) {
-            super("No such Professor with id: " + id);
-        }
-    }
-
-
-    private class ProfessorAlreadyExistsException extends Throwable {
-        public ProfessorAlreadyExistsException(String name) {
-            super("Professor Already Exists");
-        }
-    }
-
-    private class ConflictedHorarioException extends Throwable {
-        public ConflictedHorarioException(String s) {
-            super("Horario Sobreposto");
-        }
     }
 }

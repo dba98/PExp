@@ -1,9 +1,10 @@
 package com.plataforma.explicacoes.services;
 
+import com.plataforma.explicacoes.exceptions.ProfessorDoesNotExistException;
 import com.plataforma.explicacoes.models.Horario;
 import com.plataforma.explicacoes.models.Professor;
-import com.plataforma.explicacoes.repositories.HorarioRepo;
 import com.plataforma.explicacoes.repositories.ProfessorRepo;
+import com.plataforma.explicacoes.repositories.UniversidadeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,10 @@ public class ProfessorService {
 
     @Autowired
     private ProfessorRepo professorRepo;
+
+    @Autowired
+    private UniversidadeRepo universidadeRepo;
+
 
     public Set<Professor> findAll() {
         Set<Professor> professores = new HashSet<>();
@@ -42,28 +47,23 @@ public class ProfessorService {
 
 
 
-    public Optional<Professor> createHorario(Map<String,String> jsonHorario) {
-
-
+    public Optional<Professor> createHorario(Map<String,String> jsonHorario) throws ProfessorDoesNotExistException {
         Optional<Professor> optionalProfessor = this.findById(Long.parseLong(jsonHorario.get("idProfessor")));
-
-
         if (optionalProfessor.isEmpty()) {
-            return Optional.empty();
+            throw new ProfessorDoesNotExistException("Professor inexistente");
         }
+        checkSobreposicao(optionalProfessor,Integer.parseInt(jsonHorario.get("dia")),LocalTime.parse(jsonHorario.get("hInicio")),LocalTime.parse(jsonHorario.get("hFim")));
+        optionalProfessor.get().addHorario(new Horario( DayOfWeek.of(Integer.parseInt(jsonHorario.get("dia"))), LocalTime.parse(jsonHorario.get("hInicio")), LocalTime.parse(jsonHorario.get("hFim"))));
+        universidadeRepo.save(optionalProfessor.get().getCadeiras().iterator().next().getCurso().getFaculdade().getUniversidade());
+        return Optional.of(optionalProfessor.get());
+    }
 
-
+    public boolean checkSobreposicao (Optional<Professor> optionalProfessor,Integer dia, LocalTime hInicio, LocalTime hFim){
         for (Horario horario : optionalProfessor.get().getHorarios()) {
-            if (horario.getDia().getValue() == Integer.parseInt(jsonHorario.get("dia")))
-                if (!LocalTime.parse(jsonHorario.get("hInicio")).isAfter(horario.getHFim()) || !LocalTime.parse(jsonHorario.get("hFim")).isBefore(horario.getHInicio())) {
-                    return Optional.empty();
-                }
+            if (horario.getDia().getValue() == dia)
+                if (hInicio.isBefore(horario.getHFim()) && hFim.isAfter(horario.getHInicio()))
+                    return false;
         }
-        Horario h= new Horario( DayOfWeek.of(Integer.parseInt(jsonHorario.get("dia"))), LocalTime.parse(jsonHorario.get("hInicio")), LocalTime.parse(jsonHorario.get("hFim")));
-        optionalProfessor.get().addHorario(h);
-
-        System.out.println(h);
-        System.out.println(optionalProfessor.get().getHorarios());
-        return Optional.of(professorRepo.save(optionalProfessor.get()));
+        return true;
     }
 }
