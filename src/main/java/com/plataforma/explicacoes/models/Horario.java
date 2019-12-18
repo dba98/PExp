@@ -23,14 +23,23 @@ public class Horario {
     private LocalTime hInicio;
     private LocalTime hFim;
 
-
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @JsonBackReference
+    //@JsonIgnore
     private Professor professor;
 
-    public Horario (DayOfWeek dia, Professor professor,LocalTime hInicio,LocalTime hFim){
+
+    public Horario(DayOfWeek dia,LocalTime hInicio,LocalTime hFim){
+        System.out.println("Estou aqui");
+        this.setDia(dia);
+        this.setHInicio(hInicio);
+        this.setHFim(hFim);
+
+    }
+    public Horario (Professor professor, DayOfWeek dia,LocalTime hInicio,LocalTime hFim){
+        System.out.println("Estou aqui 2");
         this.setDia(dia);
         this.setProfessor(professor);
         this.setHInicio(hInicio);
