@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.DayOfWeek;
 import java.util.Map;
 import java.util.Optional;
 
@@ -52,7 +51,7 @@ public class ProfessorController {
     }
 
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Professor> createHorario(@RequestBody Map<String, String> jsonHorario, DayOfWeek dia, String hinicio, String hFim) throws ConflictedHorarioException {
+    public ResponseEntity<Professor> createHorario(@RequestBody Map<String, String> jsonHorario) throws ConflictedHorarioException {
         System.out.println(jsonHorario);
 
 
