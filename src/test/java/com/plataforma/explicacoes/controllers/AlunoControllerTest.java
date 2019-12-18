@@ -70,7 +70,7 @@ class AlunoControllerTest {
         assertEquals(aluno, responseAluno);
 
         this.mockMvc.perform(
-                get("/client/2")
+                get("/aluno/2")
         ).andExpect(
                 status().isNotFound()
         );

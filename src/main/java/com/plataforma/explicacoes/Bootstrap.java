@@ -71,17 +71,18 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
         Professor professor3= new ProfessorBuilder().setName("Feliz Gouveia").setNum(11145).
                 setGrau(qualificacao2).addHorario(new Horario(DayOfWeek.MONDAY,LocalTime.of(10,0), LocalTime.of(12,0))).addIdioma(idioma1).addCadeira(cadeira1).build();
 
-        //idioma1.addProfessor(professor1);
-        //idioma1.addProfessor(professor2);
-        //idioma1.addProfessor(professor3);
-        //qualificacao1.addProfessor(professor1);
-        //qualificacao2.addProfessor(professor2);
-        //qualificacao2.addProfessor(professor3);
-        //cadeira1.addProfessor(professor1);
-        //cadeira1.addProfessor(professor3);
-        //cadeira2.addProfessor(professor2);
+        idioma1.addProfessor(professor1);
+        idioma1.addProfessor(professor2);
+        idioma1.addProfessor(professor3);
+        qualificacao1.addProfessor(professor1);
+        qualificacao2.addProfessor(professor2);
+        qualificacao2.addProfessor(professor3);
+        cadeira1.addProfessor(professor1);
+        cadeira1.addProfessor(professor3);
+        cadeira2.addProfessor(professor2);
         cadeira1.associateCurso(curso1);
         cadeira2.associateCurso(curso2);
+
         //professor1.associateQualificacao(qualificacao1);
         //professor1.addCadeira(cadeira1);
         //professor1.addIdioma(idioma1);
@@ -113,9 +114,9 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
         this.idiomaRepo.save(idioma1);
         this.qualificacaoRepo.save(qualificacao1);
         this.qualificacaoRepo.save(qualificacao2);
-        this.professorRepo.save(professor1);
+       /* this.professorRepo.save(professor1);
         this.professorRepo.save(professor2);
-        this.professorRepo.save(professor3);
+        this.professorRepo.save(professor3);*/
 
     }
 }

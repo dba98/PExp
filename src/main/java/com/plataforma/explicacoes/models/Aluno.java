@@ -44,6 +44,10 @@ public class Aluno {
     }
 
 
+    public void addAtendimento(Atendimento atendimento){
+        this.atendimentos.add(atendimento);
+    }
+
 
 
 }
