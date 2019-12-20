@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -25,11 +24,11 @@ public class AtendimentoController {
     private AtendimentoService atendimentoService;
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Atendimento> createAtendimento(@RequestBody Map<String, String> jsonAtendimento) throws AtendimentoController.ConflictedAtendimentoException {
-        System.out.println(jsonAtendimento);
+    public ResponseEntity<Atendimento> createAtendimento(@RequestBody Atendimento atendimento) throws AtendimentoController.ConflictedAtendimentoException {
+        System.out.println(atendimento);
 
 
-        Optional<Atendimento> optionalAtendimento = this.atendimentoService.createAtendimento(jsonAtendimento);
+        Optional<Atendimento> optionalAtendimento = this.atendimentoService.createAtendimento(atendimento);
         if (optionalAtendimento.isEmpty()) {
             throw new AtendimentoController.ConflictedAtendimentoException("");
         }

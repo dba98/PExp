@@ -20,7 +20,6 @@ public class Atendimento {
     private long id;
     private LocalDate date;
     private LocalTime dinicio;
-    private LocalTime dfim;
 
     @OneToOne
     private Cadeira cadeira;
@@ -37,10 +36,9 @@ public class Atendimento {
     @JsonBackReference(value = "alunos_atendimentos")
     private Aluno aluno;
 
-    public Atendimento (LocalDate date, LocalTime hinicio, LocalTime hfim, Professor professor, Aluno aluno, Cadeira cadeira){
+    public Atendimento (LocalDate date, LocalTime hinicio, Professor professor, Aluno aluno, Cadeira cadeira){
         this.setDate(date);
         this.setDinicio(hinicio);
-        this.setDfim(hfim);
         this.setProfessor(professor);
         this.setCadeira(cadeira);
         this.setAluno(aluno);
