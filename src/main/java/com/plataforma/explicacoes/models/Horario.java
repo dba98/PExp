@@ -20,27 +20,26 @@ public class Horario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private DayOfWeek dia;
-    private LocalTime hInicio;
-    private LocalTime hFim;
+    private LocalTime inicio;
+    private LocalTime fim;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @JsonBackReference
-    //@JsonIgnore
+    @JsonBackReference("professores_horarios")
     private Professor professor;
 
 
-    public Horario(DayOfWeek dia,LocalTime hInicio,LocalTime hFim){
+    public Horario(DayOfWeek dia,LocalTime hInicio,LocalTime fim){
         this.setDia(dia);
-        this.setHInicio(hInicio);
-        this.setHFim(hFim);
+        this.setInicio(hInicio);
+        this.setFim(fim);
 
     }
-    public Horario (Professor professor, DayOfWeek dia,LocalTime hInicio,LocalTime hFim){
+    public Horario (Professor professor, DayOfWeek dia,LocalTime hInicio,LocalTime fim){
         this.setDia(dia);
         this.setProfessor(professor);
-        this.setHInicio(hInicio);
-        this.setHFim(hFim);
+        this.setInicio(hInicio);
+        this.setFim(fim);
     }
 }

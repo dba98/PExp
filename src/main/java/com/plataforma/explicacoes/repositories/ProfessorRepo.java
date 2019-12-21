@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface ProfessorRepo extends CrudRepository<Professor,Long> {
     Optional<Professor> findByName(String name);
     Optional<Professor> findById(Long id);
+    Optional<Professor> findByNum(int num);
 }
