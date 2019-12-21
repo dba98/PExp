@@ -1,13 +1,13 @@
 package com.plataforma.explicacoes.models;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Data
 @Entity
@@ -18,11 +18,10 @@ public class Atendimento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private Date dinicio;
-    private Date dfim;
+    private LocalDate date;
+    private LocalTime dinicio;
 
     @OneToOne
-    @JsonIgnore
     private Cadeira cadeira;
 
     @ManyToOne
@@ -37,12 +36,13 @@ public class Atendimento {
     @JsonBackReference(value = "alunos_atendimentos")
     private Aluno aluno;
 
-    public Atendimento (Date dinicio, Date dfim, Professor professor, Aluno aluno, Cadeira cadeira){
-        this.setDinicio(dinicio);
-        this.setDfim(dfim);
+    public Atendimento (LocalDate date, LocalTime hinicio, Professor professor, Aluno aluno, Cadeira cadeira){
+        this.setDate(date);
+        this.setDinicio(hinicio);
         this.setProfessor(professor);
         this.setCadeira(cadeira);
         this.setAluno(aluno);
     }
+
 }
 
