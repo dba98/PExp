@@ -112,10 +112,10 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
         curso2.associateFaculdade(faculdade1);
 
         Atendimento atendimento1= new AtendimentoBuilder().setDate(LocalDate.now()).setDinicio(LocalTime.of(10,00)).
-                setDfim(LocalTime.of(11,00)).setAluno(aluno1).setProfessor(professor1).
+                setAluno(aluno1).setProfessor(professor1).
                 setCadeira(cadeira1).build();
         Atendimento atendimento2= new AtendimentoBuilder().setDate(LocalDate.now()).setDinicio(LocalTime.of(12,00)).
-                setDfim(LocalTime.of(12,00)).setAluno(aluno2).setProfessor(professor2).
+                setAluno(aluno2).setProfessor(professor2).
                 setCadeira(cadeira2).build();
 
 
