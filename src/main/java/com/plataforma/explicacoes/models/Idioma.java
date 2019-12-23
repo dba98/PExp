@@ -2,6 +2,7 @@ package com.plataforma.explicacoes.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -22,6 +23,7 @@ public class Idioma {
 
     @ManyToMany
     //@JsonBackReference(value = "professor_idioma")
+    @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @JsonIgnore
     private Set<Professor> professores = new HashSet<>();

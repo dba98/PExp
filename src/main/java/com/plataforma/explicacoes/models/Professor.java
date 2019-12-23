@@ -2,6 +2,7 @@ package com.plataforma.explicacoes.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -15,6 +16,7 @@ import java.util.Set;
 @Data
 @Entity
 @NoArgsConstructor
+//@JsonIgnoreProperties(value = {"cadeiras"},allowSetters = true)
 public class Professor {
 
     @Id
@@ -28,29 +30,27 @@ public class Professor {
     private Set<Atendimento> atendimentos = new HashSet<>();
 
     @ManyToMany
-    @EqualsAndHashCode.Exclude
+    //@EqualsAndHashCode.Exclude
     //@ToString.Exclude
 //    @JsonManagedReference(value = "professor_idioma")
     private Set<Idioma> idiomas = new HashSet<>();
 
     @ManyToMany
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    @JsonBackReference(value = "professor_cadeira")
-   // @JsonIgnore
+    @JsonManagedReference(value = "professor_cadeira")
+    @JsonIgnore
     private Set<Cadeira> cadeiras = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.PERSIST)
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
+    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    //@EqualsAndHashCode.Exclude
+    //@ToString.Exclude
     @JsonManagedReference(value = "professores_horarios")
    // @JsonIgnore
     private Set<Horario> horarios = new HashSet<>();
 
     @ManyToOne
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    // @JsonManagedReference(value = "professor_qualificacao")
+    //@EqualsAndHashCode.Exclude
+    //@ToString.Exclude
+    //@JsonManagedReference(value = "professor_qualificacao")
     private Qualificacao grau;
 
     public Professor(String name, int num) {

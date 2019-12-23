@@ -55,10 +55,6 @@ public class CadeiraController {
             return ResponseEntity.ok(optionalCadeira.get());
         throw new CadeiraAlreadyExistsException(cadeira.getName());
     }
-
-
-
-
     // -------------  Exception --------------------
     @ResponseStatus( value = HttpStatus.NOT_FOUND, reason = "No such Cadeira")
     private static class NoCadeiraException extends RuntimeException {

@@ -21,10 +21,6 @@ public class ProfessorService {
     @Autowired
     private ProfessorRepo professorRepo;
 
-    @Autowired
-    private UniversidadeRepo universidadeRepo;
-
-
     public Set<Professor> findAll() {
         Set<Professor> professores = new HashSet<>();
         for (Professor p1 : this.professorRepo.findAll()) {
@@ -47,23 +43,26 @@ public class ProfessorService {
 
 
 
-    public Optional<Professor> createHorario(Map<String,String> jsonHorario) throws ProfessorDoesNotExistException {
-        Optional<Professor> optionalProfessor = this.findById(Long.parseLong(jsonHorario.get("idProfessor")));
+    public Optional<Professor> createHorario(Professor professor) throws ProfessorDoesNotExistException {
+        Optional<Professor> optionalProfessor = professorRepo.findByNum(professor.getNum());
         if (optionalProfessor.isEmpty()) {
             throw new ProfessorDoesNotExistException("Professor inexistente");
         }
-        checkSobreposicao(optionalProfessor,Integer.parseInt(jsonHorario.get("dia")),LocalTime.parse(jsonHorario.get("hInicio")),LocalTime.parse(jsonHorario.get("hFim")));
-        optionalProfessor.get().addHorario(new Horario( DayOfWeek.of(Integer.parseInt(jsonHorario.get("dia"))), LocalTime.parse(jsonHorario.get("hInicio")), LocalTime.parse(jsonHorario.get("hFim"))));
-        universidadeRepo.save(optionalProfessor.get().getCadeiras().iterator().next().getCurso().getFaculdade().getUniversidade());
+        //Professor auxprofessor = optionalProfessor.get();
+        optionalProfessor.get().setHorarios(professor.getHorarios());
+        professorRepo.save(optionalProfessor.get());
         return Optional.of(optionalProfessor.get());
     }
 
-    public boolean checkSobreposicao (Optional<Professor> optionalProfessor,Integer dia, LocalTime hInicio, LocalTime hFim){
-        for (Horario horario : optionalProfessor.get().getHorarios()) {
-            if (horario.getDia().getValue() == dia)
+
+
+
+    /*public boolean checkSobreposicao (Professor professor, Professor auxprofessor){
+        for (Horario horario : auxprofessor.getHorarios()) {
+            if (horario.getDia().getValue() == auxprofessor.get)
                 if (hInicio.isBefore(horario.getHFim()) && hFim.isAfter(horario.getHInicio()))
                     return false;
         }
         return true;
-    }
+    }*/
 }

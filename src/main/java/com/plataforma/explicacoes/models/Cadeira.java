@@ -3,6 +3,7 @@ package com.plataforma.explicacoes.models;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -16,6 +17,7 @@ import java.util.Set;
 @Data
 @Entity
 @NoArgsConstructor
+@JsonIgnoreProperties(value = {"professores"},allowSetters = true)
 public class Cadeira {
 
     @Id
@@ -32,7 +34,9 @@ public class Cadeira {
     private Curso curso;
 
     @ManyToMany(mappedBy = "cadeiras",cascade = CascadeType.PERSIST)
-    @JsonManagedReference(value = "professor_cadeira")
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonBackReference(value = "professor_cadeira")
     //@JsonIgnore
     private Set<Professor> professores=new HashSet<>();
 

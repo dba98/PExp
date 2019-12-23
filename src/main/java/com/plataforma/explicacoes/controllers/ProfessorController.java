@@ -44,7 +44,7 @@ public class ProfessorController {
         throw new ProfessorDoesNotExistException("Professor Inexistente");
     }
 
-    @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Professor> createProfessor(@RequestBody Professor professor) throws ProfessorAlreadyExistException {
         Optional<Professor> optionalProfessor = this.professorService.createProfessor(professor);
         if (optionalProfessor.isEmpty()) {
@@ -54,11 +54,9 @@ public class ProfessorController {
     }
 
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Professor> createHorario(@RequestBody Map<String, String> jsonHorario) throws ConflictedHorarioException, ProfessorDoesNotExistException {
-        System.out.println(jsonHorario);
-
-
-        Optional<Professor> optionalProfessor = this.professorService.createHorario(jsonHorario);
+    public ResponseEntity<Professor> createHorario(@RequestBody Professor professor) throws ConflictedHorarioException, ProfessorDoesNotExistException {
+        Optional<Professor> optionalProfessor = this.professorService.createHorario(professor);
+        System.out.println(professor);
         if (optionalProfessor.isEmpty()) {
             throw new ConflictedHorarioException("Horario Sobreposto");
         }

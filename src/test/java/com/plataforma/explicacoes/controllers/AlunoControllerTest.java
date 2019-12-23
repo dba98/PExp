@@ -61,10 +61,7 @@ class AlunoControllerTest {
         when(this.alunoService.findById(1L)).thenReturn(Optional.of(aluno));
 
         String responseJson = this.mockMvc.perform(
-                get("/aluno/1")
-        ).andExpect(
-                status().isOk()
-        ).andReturn().getResponse().getContentAsString();
+                get("/aluno/1")).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
 
         Aluno responseAluno = this.objectMapper.readValue(responseJson, Aluno.class);
         assertEquals(aluno, responseAluno);
