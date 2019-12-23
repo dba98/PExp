@@ -1,6 +1,7 @@
 package com.plataforma.explicacoes.repositories;
 
 import com.plataforma.explicacoes.models.*;
+import com.plataforma.explicacoes.models.builders.UniversidadeBuilder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -41,7 +42,7 @@ class UniversidadeRepoTest {
         Idioma idioma1= new Idioma("Português");
         Qualificacao qualificacao1= new Qualificacao("Mestre",3);
         Qualificacao qualificacao2= new Qualificacao("Doutor",2);
-        Universidade universidade1= new Universidade( "UFP");
+        Universidade universidade1= new UniversidadeBuilder().setName("UFP").build();
 
         Faculdade faculdade1 = new Faculdade("Faculdade de Ciencias", universidade1);
 

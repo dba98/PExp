@@ -3,6 +3,7 @@ package com.plataforma.explicacoes.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.plataforma.explicacoes.models.Faculdade;
 import com.plataforma.explicacoes.models.Universidade;
+import com.plataforma.explicacoes.models.builders.UniversidadeBuilder;
 import com.plataforma.explicacoes.repositories.FaculdadeRepo;
 import com.plataforma.explicacoes.services.FaculdadeService;
 import org.junit.jupiter.api.Test;
@@ -34,7 +35,7 @@ class FaculdadeControllerTest {
 
     @Test
     void createFaculdade() throws Exception {
-        Universidade uni = new Universidade("UFP");
+        Universidade uni = new UniversidadeBuilder().setName("UFP").build();
         Faculdade faculdade = new Faculdade("Faculdade Medicina Dentaria",uni);
 
         String jsonRequest=this.objectMapper.writeValueAsString(faculdade);
@@ -51,7 +52,7 @@ class FaculdadeControllerTest {
     @Test
     void getAllFaculdade() throws Exception {
 
-        Universidade uni = new Universidade("UFP");
+        Universidade uni = new UniversidadeBuilder().setName("UFP").build();
         Faculdade faculdade = new Faculdade("Faculdade Medicina Dentaria",uni);
         faculdade.setId(1L);
 
@@ -69,7 +70,7 @@ class FaculdadeControllerTest {
     @Test
     void getFaculdadeById() throws Exception {
 
-        Universidade uni = new Universidade("UFP");
+        Universidade uni = new UniversidadeBuilder().setName("UFP").build();
         Faculdade faculdade = new Faculdade("Faculdade Medicina Dentaria",uni);
         faculdade.setId(1L);
 
