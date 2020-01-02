@@ -46,7 +46,7 @@ public class AlunoBuilder {
     }
 
     public Aluno build(){
-        return new Aluno()
+        return new Aluno(num, name, curso, atendimentos);
     }
 
 }
