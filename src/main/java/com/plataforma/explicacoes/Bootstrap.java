@@ -1,9 +1,7 @@
 package com.plataforma.explicacoes;
 
 import com.plataforma.explicacoes.models.*;
-import com.plataforma.explicacoes.models.builders.AtendimentoBuilder;
-import com.plataforma.explicacoes.models.builders.ProfessorBuilder;
-import com.plataforma.explicacoes.models.builders.UniversidadeBuilder;
+import com.plataforma.explicacoes.models.builders.*;
 import com.plataforma.explicacoes.repositories.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,20 +50,15 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
         Faculdade faculdade1 = new Faculdade("Faculdade de Ciencias", universidade1);
 
         universidade1.addFaculdade(faculdade1);
-
-        Curso curso1 = new Curso("Engenharia Informática", 1);
-        Curso curso2 = new Curso("Ciencias da Comunicação", 2);
+        
+        Curso curso1= new CursoBuilder().setNome("Engenharia Informática").setCodigo(1).build();
+        Curso curso2= new CursoBuilder().setNome("Ciências da Comunicação").setCodigo(2).build();
 
         faculdade1.addCurso(curso1);
         faculdade1.addCurso(curso2);
 
         Cadeira cadeira1 = new Cadeira("Engenharia Software", 1);
         Cadeira cadeira2 = new Cadeira("Gramatica da Comunicacao", 2);
-
-
-        //Professor professor1 = new Professor("Alessandro Moreira", 11111);
-        //Professor professor2 = new Professor("Rui Estrada", 11121);
-        //Professor professor3 = new Professor("Feliz Gouveia", 11145);
 
         Professor professor1 = new ProfessorBuilder().setName("Alessandro Moreira").setNum(11111).
                 setGrau(qualificacao1).addIdioma(idioma1).addCadeira(cadeira1).build();
@@ -86,23 +79,10 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
         cadeira1.associateCurso(curso1);
         cadeira2.associateCurso(curso2);
 
-        //professor1.associateQualificacao(qualificacao1);
-        //professor1.addCadeira(cadeira1);
-        //professor1.addIdioma(idioma1);
-        //professor2.associateQualificacao(qualificacao2);
-        //professor2.addCadeira(cadeira2);
-        //professor2.addIdioma(idioma1);
-        //professor3.associateQualificacao(qualificacao2);
-        //professor3.addCadeira(cadeira1);
-        //professor3.addIdioma(idioma1);
+        Aluno aluno1= new AlunoBuilder().setName("Ricardo").setNum(35249).setCurso(curso1).build();
+        Aluno aluno2= new AlunoBuilder().setName("Diogo").setNum(35245).setCurso(curso1).build();
+        Aluno aluno3= new AlunoBuilder().setName("Catarina").setNum(35367).setCurso(curso1).build();
 
-        Aluno aluno1 = new Aluno("Ricardo", 35249);
-        Aluno aluno2 = new Aluno("Diogo", 35245);
-        Aluno aluno3 = new Aluno("Catarina", 35987);
-
-        aluno1.associateCurso(curso1);
-        aluno2.associateCurso(curso1);
-        aluno3.associateCurso(curso2);
         curso1.addAluno(aluno1);
         curso1.addAluno(aluno2);
         curso1.addCadeira(cadeira1);
