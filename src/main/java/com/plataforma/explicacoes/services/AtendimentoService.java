@@ -77,7 +77,7 @@ public class AtendimentoService {
         LocalTime hFim = hInicio.plusHours(1);
         for(Horario horario : professor.getHorarios()){
             if(horario.getDia().getValue() == dia) {
-                if ((hInicio.equals(horario.getInicio()) || hInicio.isAfter(horario.getInicio()))){
+                if ((hInicio.equals(horario.getHInicio()) || hInicio.isAfter(horario.getHInicio()) && (hFim.equals(horario.getHFim()) || hFim.isBefore(horario.getHFim())))){
                     return true;
                 }
             }
