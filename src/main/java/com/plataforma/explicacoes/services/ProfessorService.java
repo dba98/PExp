@@ -41,7 +41,9 @@ public class ProfessorService {
         return Optional.empty();
     }
 
-
+    public Optional<Professor> findByName(String name){
+        return this.professorRepo.findByName(name);
+    }
 
     public Optional<Professor> createHorario(Professor professor) throws ProfessorDoesNotExistException {
         Optional<Professor> optionalProfessor = professorRepo.findByNum(professor.getNum());
