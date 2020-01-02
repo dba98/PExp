@@ -29,19 +29,19 @@ public class ProfessorController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Iterable<Professor>> getAllProfessores() {
-        this.logger.info("Received a get request");
+        this.logger.info("Received a general get request");
         return ResponseEntity.ok(this.professorService.findAll());
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Professor> getProfessorById(@PathVariable("id") Long id) throws ProfessorDoesNotExistException {
-        this.logger.info("Received a get request");
-
-        Optional<Professor> optionalProfessor = this.professorService.findById(id);
-        if (optionalProfessor.isPresent()) {
+    @RequestMapping(value = "/{name}",method = RequestMethod.GET)
+    public ResponseEntity<Professor> getProfessorByName(@PathVariable("name") String name) throws ProfessorDoesNotExistException {
+        this.logger.info("Received a get request with a name");
+        Optional<Professor> optionalProfessor = this.professorService.findByName(name);
+        if(optionalProfessor.isPresent()){
             return ResponseEntity.ok(optionalProfessor.get());
         }
         throw new ProfessorDoesNotExistException("Professor Inexistente");
+
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
