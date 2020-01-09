@@ -30,16 +30,16 @@ public class Horario {
     private Professor professor;
 
 
-    public Horario(DayOfWeek dia,LocalTime hInicio,LocalTime fim){
+    public Horario(DayOfWeek dia,LocalTime inicio,LocalTime fim){
         this.setDia(dia);
-        this.setInicio(hInicio);
+        this.setInicio(inicio);
         this.setFim(fim);
 
     }
-    public Horario (Professor professor, DayOfWeek dia,LocalTime hInicio,LocalTime fim){
+    public Horario (Professor professor, DayOfWeek dia,LocalTime inicio,LocalTime fim){
         this.setDia(dia);
         this.setProfessor(professor);
-        this.setInicio(hInicio);
+        this.setInicio(inicio);
         this.setFim(fim);
     }
 }

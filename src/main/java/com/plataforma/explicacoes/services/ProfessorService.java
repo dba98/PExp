@@ -5,6 +5,8 @@ import com.plataforma.explicacoes.models.Horario;
 import com.plataforma.explicacoes.models.Professor;
 import com.plataforma.explicacoes.repositories.ProfessorRepo;
 import com.plataforma.explicacoes.repositories.UniversidadeRepo;
+import com.plataforma.explicacoes.services.filters.professor.FilterProfessorObject;
+import com.plataforma.explicacoes.services.filters.professor.FilterProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +20,14 @@ import java.util.Set;
 @Service
 public class ProfessorService {
 
-    @Autowired
     private ProfessorRepo professorRepo;
+    private FilterProfessorService filterService;
+
+    @Autowired
+    public ProfessorService (ProfessorRepo professorRepo, FilterProfessorService filterProfessorService){
+        this.professorRepo = professorRepo;
+        this.filterService = filterProfessorService;
+    }
 
     public Set<Professor> findAll() {
         Set<Professor> professores = new HashSet<>();
@@ -56,7 +64,14 @@ public class ProfessorService {
         return Optional.of(optionalProfessor.get());
     }
 
+    public Set<Professor> filterProfessors(Map<String,String> searchParams){
+        FilterProfessorObject filterProfessorObject = new FilterProfessorObject(searchParams);
+        Set<Professor> professors = this.findAll();
+        System.out.println(professors+"\n\n"+filterProfessorObject);
+       Set<Professor> finalfilter = filterService.filter(professors,filterProfessorObject);
 
+        return finalfilter;
+    }
 
 
     /*public boolean checkSobreposicao (Professor professor, Professor auxprofessor){
