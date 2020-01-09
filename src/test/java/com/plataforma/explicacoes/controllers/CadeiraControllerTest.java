@@ -2,7 +2,6 @@ package com.plataforma.explicacoes.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.plataforma.explicacoes.models.Cadeira;
-import com.plataforma.explicacoes.repositories.CadeiraRepo;
 import com.plataforma.explicacoes.services.CadeiraService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

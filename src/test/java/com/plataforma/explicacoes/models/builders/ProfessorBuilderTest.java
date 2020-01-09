@@ -1,7 +1,5 @@
 package com.plataforma.explicacoes.models.builders;
 
-import com.plataforma.explicacoes.models.Cadeira;
-import com.plataforma.explicacoes.models.Idioma;
 import com.plataforma.explicacoes.models.Professor;
 import com.plataforma.explicacoes.models.Qualificacao;
 import org.junit.jupiter.api.Test;

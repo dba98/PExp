@@ -1,6 +1,4 @@
 package com.plataforma.explicacoes.models.builders;
-
-import com.plataforma.explicacoes.models.Faculdade;
 import com.plataforma.explicacoes.models.Universidade;
 import org.junit.jupiter.api.Test;
 

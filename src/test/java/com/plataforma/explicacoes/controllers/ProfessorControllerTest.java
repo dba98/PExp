@@ -1,13 +1,8 @@
 package com.plataforma.explicacoes.controllers;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.plataforma.explicacoes.exceptions.ProfessorDoesNotExistException;
 import com.plataforma.explicacoes.models.*;
 import com.plataforma.explicacoes.models.builders.ProfessorBuilder;
-import com.plataforma.explicacoes.services.AlunoService;
 import com.plataforma.explicacoes.services.ProfessorService;
-import org.apache.tomcat.jni.Local;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

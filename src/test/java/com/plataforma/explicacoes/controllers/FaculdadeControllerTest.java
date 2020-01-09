@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.plataforma.explicacoes.models.Faculdade;
 import com.plataforma.explicacoes.models.Universidade;
 import com.plataforma.explicacoes.models.builders.UniversidadeBuilder;
-import com.plataforma.explicacoes.repositories.FaculdadeRepo;
 import com.plataforma.explicacoes.services.FaculdadeService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
