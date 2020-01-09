@@ -45,16 +45,6 @@ public class CursoBuilder {
         return this;
     }
 
-    public CursoBuilder setProfessors(Set<Professor> professors){
-        this.professors= professors;
-        return this;
-    }
-
-    public CursoBuilder addProfessors(Professor professor){
-        this.professors.add(professor);
-        return this;
-    }
-
     public CursoBuilder setAlunos(Set<Aluno> alunos){
         this.alunos= alunos;
         return this;
@@ -65,6 +55,6 @@ public class CursoBuilder {
         return this;
     }
 
-    public Curso build(){ return new Curso(id,nome, codigo, faculdade,professors, cadeiras, alunos);}
+    public Curso build(){ return new Curso(id,nome, codigo, faculdade, professors,cadeiras, alunos);}
 
 }

@@ -68,11 +68,11 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
         //Professor professor3 = new Professor("Feliz Gouveia", 11145);
 
         Professor professor1 = new ProfessorBuilder().setName("Alessandro Moreira").setNum(11111).
-                setGrau(qualificacao1).addIdioma(idioma1).setCurso(curso1).addHorario(new Horario(DayOfWeek.THURSDAY,LocalTime.of(10,0), LocalTime.of(12,0))).build();
+                setGrau(qualificacao1).addIdioma(idioma1).addCadeira(cadeira1).addHorario(new Horario(DayOfWeek.THURSDAY,LocalTime.of(10,0), LocalTime.of(12,0))).build();
         Professor professor2= new ProfessorBuilder().setName("Rui Estrada").addHorario(new Horario(DayOfWeek.MONDAY,LocalTime.of(10,0), LocalTime.of(12,0))).setNum(11121).
-                setGrau(qualificacao2).addIdioma(idioma1).setCurso(curso1).build();
+                setGrau(qualificacao2).addIdioma(idioma1).addCadeira(cadeira2).build();
         Professor professor3= new ProfessorBuilder().setName("Feliz Gouveia").setNum(11145).
-                setGrau(qualificacao2).addHorario(new Horario(DayOfWeek.MONDAY,LocalTime.of(10,0), LocalTime.of(12,0))).addIdioma(idioma1).setCurso(curso1).build();
+                setGrau(qualificacao2).addHorario(new Horario(DayOfWeek.MONDAY,LocalTime.of(10,0), LocalTime.of(12,0))).addIdioma(idioma1).addCadeira(cadeira1).build();
 
         idioma1.addProfessor(professor1);
         idioma1.addProfessor(professor2);
@@ -80,6 +80,9 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
         qualificacao1.addProfessor(professor1);
         qualificacao2.addProfessor(professor2);
         qualificacao2.addProfessor(professor3);
+        cadeira1.addProfessor(professor1);
+        cadeira1.addProfessor(professor3);
+        cadeira2.addProfessor(professor2);
         cadeira1.associateCurso(curso1);
         cadeira2.associateCurso(curso2);
 

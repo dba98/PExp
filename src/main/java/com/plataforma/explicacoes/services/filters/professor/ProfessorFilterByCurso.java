@@ -20,9 +20,11 @@ public class ProfessorFilterByCurso implements FilterI<Professor>{
         }
         Set<Professor> professors = new HashSet<>();
         for (Professor professor : entities){
-                if (professor.getCurso().getCodigo().equals(curso))
+            for (Cadeira cadeira : professor.getCadeiras()){
+                System.out.println("Cadeira curso: "+cadeira.getCurso().getCodigo()+" Curso:"+curso);
+                if (cadeira.getCurso().getCodigo().equals(curso))
                     professors.add(professor);
-
+            }
         }
         return professors;
     }

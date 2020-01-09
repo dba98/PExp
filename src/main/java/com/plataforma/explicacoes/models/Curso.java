@@ -39,7 +39,7 @@ public class Curso {
 
     @OneToMany(mappedBy = "curso", cascade = CascadeType.PERSIST)
     @JsonManagedReference(value = "curso_professores")
-    private Set<Professor> professors = new HashSet<>();
+    private Set<Professor> professores = new HashSet<>();
 
 
     public Curso(String nome, Integer codigo) {
@@ -69,7 +69,7 @@ public class Curso {
         this.cadeiras.add(cadeira);
     }
     public void addProfessor(Professor professor) {
-        this.professors.add(professor);
+        this.professores.add(professor);
     }
     public void associateFaculdade(Faculdade faculdade) {
         this.setFaculdade(faculdade);

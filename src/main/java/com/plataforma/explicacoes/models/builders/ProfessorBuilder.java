@@ -12,6 +12,7 @@ public class ProfessorBuilder {
     private int num;
     private Set<Atendimento> atendimentos = new HashSet<>();
     private Set<Idioma> idiomas = new HashSet<>();
+    private Set<Cadeira> cadeiras = new HashSet<>();
     private Set<Horario> horarios = new HashSet<>();
     private Qualificacao grau;
     private Curso curso;
@@ -70,8 +71,17 @@ public class ProfessorBuilder {
         this.horarios.add(horario);
         return this;
     }
+    public ProfessorBuilder setCadeiras(Set<Cadeira> cadeiras){
+        this.cadeiras= cadeiras;
+        return this;
+    }
+
+    public ProfessorBuilder addCadeira(Cadeira cadeira){
+        this.cadeiras.add(cadeira);
+        return this;
+    }
 
     public Professor build(){
-        return new Professor(id,name,num,grau,curso,atendimentos,idiomas,horarios);
+        return new Professor(id,name,num,grau,curso,cadeiras,atendimentos,idiomas,horarios);
     }
 }
