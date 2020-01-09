@@ -25,7 +25,7 @@ public class Professor {
     private String name;
     private int num;
 
-    @OneToMany(mappedBy = "professor")
+    @OneToMany(mappedBy = "professor",cascade = CascadeType.PERSIST)
     @JsonManagedReference(value = "professores_atendimentos")
     private Set<Atendimento> atendimentos = new HashSet<>();
 
@@ -42,7 +42,12 @@ public class Professor {
    // @JsonIgnore
     private Set<Horario> horarios = new HashSet<>();
 
+    @ManyToMany
+    @JsonManagedReference(value = "professor_cadeira")
+    @JsonIgnore
+    private Set<Cadeira> cadeiras = new HashSet<>();
     @ManyToOne
+    @JsonBackReference(value = "curso_professores")
     private Curso curso;
     @ManyToOne
     //@EqualsAndHashCode.Exclude
@@ -55,13 +60,15 @@ public class Professor {
         this.setNum(num);
     }
 
-    public Professor(Long id, String name, int num, Qualificacao grau,Curso curso, Set<Atendimento> atendimentos, Set<Idioma> idiomas, Set<Horario> horarios) {
+    public Professor(Long id, String name, int num, Qualificacao grau,Curso curso,Set<Cadeira>cadeiras, Set<Atendimento> atendimentos, Set<Idioma> idiomas, Set<Horario> horarios) {
         this.setId(id);
         this.setName(name);
         this.setNum(num);
         this.associateQualificacao(grau);
         for(Atendimento atendimento: atendimentos)
             this.addAtendimento(atendimento);
+        for (Cadeira cadeira: cadeiras)
+            this.addCadeira(cadeira);
         for(Idioma idioma: idiomas)
             this.addIdioma(idioma);
         for(Horario horario:horarios)
@@ -83,7 +90,9 @@ public class Professor {
     public void addHorario(Horario horario) {
         horario.setProfessor(this);
         this.horarios.add(horario);
-
+    }
+    public void addCadeira(Cadeira cadeira){
+        this.cadeiras.add(cadeira);
     }
 
 }
