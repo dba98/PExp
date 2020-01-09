@@ -13,7 +13,6 @@ public class AtendimentoBuilder {
     private long id;
     private LocalDate date;
     private LocalTime dinicio;
-    private LocalTime dfim;
     private Cadeira cadeira;
     private Professor professor;
     private Aluno aluno;
@@ -30,11 +29,6 @@ public class AtendimentoBuilder {
 
     public AtendimentoBuilder setDinicio(LocalTime dinicio) {
         this.dinicio = dinicio;
-        return this;
-    }
-
-    public AtendimentoBuilder setDfim(LocalTime dfim) {
-        this.dfim = dfim;
         return this;
     }
 

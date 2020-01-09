@@ -3,6 +3,7 @@ package com.plataforma.explicacoes;
 import com.plataforma.explicacoes.models.*;
 import com.plataforma.explicacoes.models.builders.AtendimentoBuilder;
 import com.plataforma.explicacoes.models.builders.ProfessorBuilder;
+import com.plataforma.explicacoes.models.builders.UniversidadeBuilder;
 import com.plataforma.explicacoes.repositories.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,7 +47,7 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
         Qualificacao qualificacao1 = new Qualificacao("Mestre",3);
         Qualificacao qualificacao2 = new Qualificacao("Doutor",2);
         Qualificacao qualificacao3 = new Qualificacao("Licenciado",1);
-        Universidade universidade1 = new Universidade("UFP");
+        Universidade universidade1 = new UniversidadeBuilder().setName("UFP").build();
 
         Faculdade faculdade1 = new Faculdade("Faculdade de Ciencias", universidade1);
 
@@ -112,10 +113,10 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
         curso2.associateFaculdade(faculdade1);
 
         Atendimento atendimento1= new AtendimentoBuilder().setDate(LocalDate.now()).setDinicio(LocalTime.of(10,00)).
-                setDfim(LocalTime.of(11,00)).setAluno(aluno1).setProfessor(professor1).
+                setAluno(aluno1).setProfessor(professor1).
                 setCadeira(cadeira1).build();
         Atendimento atendimento2= new AtendimentoBuilder().setDate(LocalDate.now()).setDinicio(LocalTime.of(12,00)).
-                setDfim(LocalTime.of(12,00)).setAluno(aluno2).setProfessor(professor2).
+                setAluno(aluno2).setProfessor(professor2).
                 setCadeira(cadeira2).build();
 
 

@@ -50,6 +50,8 @@ public class CadeiraController {
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Cadeira> createCadeira (@RequestBody Cadeira cadeira){
+        System.out.println(cadeira);
+
         Optional <Cadeira> optionalCadeira = this.cadeiraService.createCadeira(cadeira);
         if(optionalCadeira.isPresent())
             return ResponseEntity.ok(optionalCadeira.get());

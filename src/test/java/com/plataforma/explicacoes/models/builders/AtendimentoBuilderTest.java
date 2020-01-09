@@ -17,7 +17,7 @@ class AtendimentoBuilderTest {
     void build(){
         AtendimentoBuilder atendimentoBuilder= new AtendimentoBuilder();
         atendimentoBuilder.setId(1L).setDate(LocalDate.now()).setDinicio(LocalTime.of(10,00)).
-                setDfim(LocalTime.of(11,00)).setAluno(new Aluno()).setProfessor(new Professor()).
+                setAluno(new Aluno()).setProfessor(new Professor()).
                 setCadeira(new Cadeira()).build();
         Atendimento atendimento= atendimentoBuilder.build();
 
