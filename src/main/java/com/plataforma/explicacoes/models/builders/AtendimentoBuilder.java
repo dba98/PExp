@@ -53,5 +53,5 @@ public class AtendimentoBuilder {
         return this;
     }
 
-    public Atendimento build(){ return new Atendimento(date, dinicio, dfim, professor, aluno, cadeira);}
+    public Atendimento build(){ return new Atendimento(date, dinicio, professor, aluno, cadeira);}
 }

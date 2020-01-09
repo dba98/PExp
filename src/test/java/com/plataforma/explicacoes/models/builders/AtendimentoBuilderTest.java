@@ -23,7 +23,6 @@ class AtendimentoBuilderTest {
 
         assertNotNull(atendimento.getDate());
         assertNotNull(atendimento.getDinicio());
-        assertNotNull(atendimento.getDfim());
         assertNotNull(atendimento.getAluno());
         assertNotNull(atendimento.getCadeira());
         assertNotNull(atendimento.getProfessor());

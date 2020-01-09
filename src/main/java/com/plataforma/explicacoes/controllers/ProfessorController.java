@@ -24,6 +24,7 @@ public class ProfessorController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     private ObjectMapper objectMapper;
+
     @Autowired
     private ProfessorService professorService;
 
@@ -52,6 +53,12 @@ public class ProfessorController {
         }
         return ResponseEntity.ok(optionalProfessor.get());
     }
+
+    @GetMapping(value = "/search",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Iterable<Professor>> searchProfessors(@RequestParam Map<String,String> query){
+        return ResponseEntity.ok(this.professorService.filterProfessors(query));
+    }
+
 
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Professor> createHorario(@RequestBody Professor professor) throws ConflictedHorarioException, ProfessorDoesNotExistException {

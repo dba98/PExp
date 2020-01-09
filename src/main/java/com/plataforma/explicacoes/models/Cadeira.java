@@ -33,20 +33,11 @@ public class Cadeira {
     @JsonBackReference(value = "curso_cadeira")
     private Curso curso;
 
-    @ManyToMany(mappedBy = "cadeiras",cascade = CascadeType.PERSIST)
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    @JsonBackReference(value = "professor_cadeira")
-    //@JsonIgnore
-    private Set<Professor> professores=new HashSet<>();
-
     public Cadeira(String name, Integer codigo) {
         this.setName(name);
         this.setCodigo(codigo);
     }
-    public void addProfessor(Professor professor){
-        this.professores.add(professor);
-    }
+
     public void associateCurso(Curso curso){
         this.setCurso(curso);
     }
