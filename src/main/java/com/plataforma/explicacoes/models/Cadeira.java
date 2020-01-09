@@ -6,8 +6,13 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.CascadeType;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import java.util.HashSet;
 import java.util.Set;
 

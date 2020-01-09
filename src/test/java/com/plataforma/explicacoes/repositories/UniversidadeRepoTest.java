@@ -1,6 +1,12 @@
 package com.plataforma.explicacoes.repositories;
-
-import com.plataforma.explicacoes.models.*;
+import com.plataforma.explicacoes.models.Aluno;
+import com.plataforma.explicacoes.models.Cadeira;
+import com.plataforma.explicacoes.models.Universidade;
+import com.plataforma.explicacoes.models.Idioma;
+import com.plataforma.explicacoes.models.Qualificacao;
+import com.plataforma.explicacoes.models.Curso;
+import com.plataforma.explicacoes.models.Professor;
+import com.plataforma.explicacoes.models.Faculdade;
 import com.plataforma.explicacoes.models.builders.UniversidadeBuilder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
