@@ -51,7 +51,7 @@ class ProfessorControllerTest {
     }
     @Test
     void getProfessorByName() throws Exception {
-        Professor professor = new ProfessorBuilder().setId(1L).setName("Alessandro").setNum(35234).setGrau(new Qualificacao("Mestre", 2)).addIdioma(new Idioma("Portugues")).addHorario(new Horario(DayOfWeek.MONDAY, LocalTime.of(10, 0), LocalTime.of(12, 0))).build();
+        Professor professor = new ProfessorBuilder().setId(1L).setName("Alessandro").setNum(35234).setGrau(new Qualificacao("Mestre", 2)).addCadeira(new Cadeira("Matematica", 123)).addIdioma(new Idioma("Portugues")).addHorario(new Horario(DayOfWeek.MONDAY, LocalTime.of(10, 0), LocalTime.of(12, 0))).build();
         when(this.professorService.findByName("Alessandro")).thenReturn(Optional.of(professor));
         String responseJson = this.mockMvc.perform(get("/professor/Alessandro")).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
         Professor responseProfessor = this.objectMapper.readValue(responseJson,Professor.class);
@@ -61,7 +61,7 @@ class ProfessorControllerTest {
 
     @Test
     void createProfessor() throws Exception {
-        Professor professor = new ProfessorBuilder().setId(1L).setName("Alessandro Moreira").setNum(35234).setGrau(new Qualificacao("Mestre", 2)).addIdioma(new Idioma("Portugues")).addHorario(new Horario(DayOfWeek.MONDAY, LocalTime.of(10, 0), LocalTime.of(12, 0))).build();
+        Professor professor = new ProfessorBuilder().setId(1L).setName("Alessandro Moreira").setNum(35234).setGrau(new Qualificacao("Mestre", 2)).addCadeira(new Cadeira("Matematica", 123)).addIdioma(new Idioma("Portugues")).addHorario(new Horario(DayOfWeek.MONDAY, LocalTime.of(10, 0), LocalTime.of(12, 0))).build();
         String jsonRequest = this.objectMapper.writeValueAsString(professor);
         when(this.professorService.createProfessor(professor)).thenReturn(Optional.of(professor));
         this.mockMvc.perform(post("/professor").contentType(MediaType.APPLICATION_JSON).content(jsonRequest)).andExpect(status().isOk());

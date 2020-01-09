@@ -62,11 +62,17 @@ class UniversidadeRepoTest {
         Professor professor2 = new Professor("Rui Estrada", 11121);
         Professor professor3 = new Professor("Feliz Gouveia", 11145);
 
+        cadeira1.addProfessor(professor1);
+        cadeira1.addProfessor(professor3);
+        cadeira2.addProfessor(professor2);
         professor1.associateQualificacao(qualificacao1);
+        professor1.addCadeira(cadeira1);
         professor1.addIdioma(idioma1);
         professor2.associateQualificacao(qualificacao2);
+        professor2.addCadeira(cadeira2);
         professor2.addIdioma(idioma1);
         professor3.associateQualificacao(qualificacao2);
+        professor3.addCadeira(cadeira1);
         professor3.addIdioma(idioma1);
 
         Aluno aluno1 = new Aluno("Ricardo", 35249);
