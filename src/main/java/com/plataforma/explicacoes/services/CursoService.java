@@ -17,7 +17,7 @@ public class CursoService {
     @Autowired
     private FaculdadeService faculdadeService;
 
-
+    public Optional<Curso> findById(Long id){ return this.cursoRepo.findById(id);}
 
     public Optional<Curso> createCurso (Curso jsonCurso){
 
