@@ -3,7 +3,6 @@ package com.plataforma.explicacoes.services.filters.professor;
 import com.plataforma.explicacoes.models.Professor;
 import org.springframework.stereotype.Service;
 
-import java.nio.file.DirectoryStream;
 import java.util.Set;
 
 @Service

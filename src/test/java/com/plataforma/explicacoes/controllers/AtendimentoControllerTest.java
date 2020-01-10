@@ -1,7 +1,11 @@
 package com.plataforma.explicacoes.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.plataforma.explicacoes.models.*;
+import com.plataforma.explicacoes.models.Atendimento;
+import com.plataforma.explicacoes.models.Cadeira;
+import com.plataforma.explicacoes.models.Horario;
+import com.plataforma.explicacoes.models.Aluno;
+import com.plataforma.explicacoes.models.Professor;
 import com.plataforma.explicacoes.services.AtendimentoService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

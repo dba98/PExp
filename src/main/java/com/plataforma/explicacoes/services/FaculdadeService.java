@@ -2,8 +2,6 @@ package com.plataforma.explicacoes.services;
 
 import com.plataforma.explicacoes.models.Faculdade;
 import com.plataforma.explicacoes.repositories.FaculdadeRepo;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

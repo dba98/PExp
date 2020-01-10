@@ -1,6 +1,11 @@
 package com.plataforma.explicacoes.services;
+import com.plataforma.explicacoes.models.Atendimento;
+import com.plataforma.explicacoes.models.Cadeira;
+import com.plataforma.explicacoes.models.Horario;
 
-import com.plataforma.explicacoes.models.*;
+import com.plataforma.explicacoes.models.Professor;
+import com.plataforma.explicacoes.models.Aluno;
+
 import com.plataforma.explicacoes.repositories.AtendimentoRepo;
 import com.plataforma.explicacoes.repositories.CadeiraRepo;
 import org.springframework.beans.factory.annotation.Autowired;

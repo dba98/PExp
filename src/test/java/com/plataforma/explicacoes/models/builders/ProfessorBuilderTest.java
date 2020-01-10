@@ -1,14 +1,13 @@
 package com.plataforma.explicacoes.models.builders;
 
-import com.plataforma.explicacoes.models.Cadeira;
-import com.plataforma.explicacoes.models.Idioma;
 import com.plataforma.explicacoes.models.Professor;
 import com.plataforma.explicacoes.models.Qualificacao;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ProfessorBuilderTest {
 

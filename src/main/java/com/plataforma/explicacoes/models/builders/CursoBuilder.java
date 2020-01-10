@@ -1,7 +1,12 @@
 package com.plataforma.explicacoes.models.builders;
 
-import com.plataforma.explicacoes.models.*;
 
+import com.plataforma.explicacoes.models.Cadeira;
+
+import com.plataforma.explicacoes.models.Curso;
+import com.plataforma.explicacoes.models.Faculdade;
+import com.plataforma.explicacoes.models.Professor;
+import com.plataforma.explicacoes.models.Aluno;
 import java.util.HashSet;
 import java.util.Set;
 
