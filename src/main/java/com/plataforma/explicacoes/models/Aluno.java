@@ -47,6 +47,14 @@ public class Aluno {
         this.setNum(num);
     }
 
+    public Aluno(int num, String name, Curso curso, Set<Atendimento> atendimentos) {
+        this.num = num;
+        this.name = name;
+        this.curso = curso;
+        for(Atendimento atendimento: atendimentos)
+            this.addAtendimento(atendimento);
+    }
+
     public void associateCurso(Curso curso){
 
         this.setCurso(curso);
