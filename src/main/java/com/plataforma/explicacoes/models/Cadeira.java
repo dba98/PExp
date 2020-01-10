@@ -44,6 +44,14 @@ public class Cadeira {
         this.setName(name);
         this.setCodigo(codigo);
     }
+
+    public Cadeira(String name, Integer codigo, Curso curso, Set<Professor> professores) {
+        this.name = name;
+        this.codigo = codigo;
+        this.curso = curso;
+        this.professores = professores;
+    }
+
     public void addProfessor(Professor professor){
         this.professores.add(professor);
     }
