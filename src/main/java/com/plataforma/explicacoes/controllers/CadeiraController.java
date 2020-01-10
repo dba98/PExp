@@ -53,7 +53,7 @@ public class CadeiraController {
         throw new NoCadeiraException(name);
     }
 
-    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/curso", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Cadeira> createCadeira (@RequestBody Cadeira cadeira){
         System.out.println(cadeira);
 

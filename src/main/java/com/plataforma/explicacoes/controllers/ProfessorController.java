@@ -70,10 +70,24 @@ public class ProfessorController {
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Professor> createHorario(@RequestBody Professor professor) throws ConflictedHorarioException, ProfessorDoesNotExistException {
         Optional<Professor> optionalProfessor = this.professorService.createHorario(professor);
-        System.out.println(professor);
+
         if (optionalProfessor.isEmpty()) {
             throw new ConflictedHorarioException("Horario Sobreposto");
         }
         return ResponseEntity.ok(optionalProfessor.get());
     }
+
+    @PutMapping(value = "/curso")
+    public ResponseEntity<Professor> associeteCurso(@RequestBody Professor professor) throws ProfessorDoesNotExistException {
+        Optional<Professor> optionalProfessor = this.professorService.associeteCurso(professor);
+
+        if(optionalProfessor.isPresent()){
+            return ResponseEntity.ok(optionalProfessor.get());
+        }else{
+            throw new ProfessorDoesNotExistException("Professor ou Curso não encontrado");
+        }
+
+    }
+
+
 }
