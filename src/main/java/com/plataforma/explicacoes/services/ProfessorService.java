@@ -1,17 +1,12 @@
 package com.plataforma.explicacoes.services;
 
 import com.plataforma.explicacoes.exceptions.ProfessorDoesNotExistException;
-import com.plataforma.explicacoes.models.Horario;
 import com.plataforma.explicacoes.models.Professor;
 import com.plataforma.explicacoes.repositories.ProfessorRepo;
-import com.plataforma.explicacoes.repositories.UniversidadeRepo;
 import com.plataforma.explicacoes.services.filters.professor.FilterProfessorObject;
 import com.plataforma.explicacoes.services.filters.professor.FilterProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.time.DayOfWeek;
-import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;

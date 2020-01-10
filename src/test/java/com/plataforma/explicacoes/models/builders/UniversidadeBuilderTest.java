@@ -1,12 +1,10 @@
 package com.plataforma.explicacoes.models.builders;
-
-import com.plataforma.explicacoes.models.Faculdade;
 import com.plataforma.explicacoes.models.Universidade;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class UniversidadeBuilderTest {
 

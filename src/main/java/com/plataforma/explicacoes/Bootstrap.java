@@ -1,10 +1,23 @@
 package com.plataforma.explicacoes;
+import com.plataforma.explicacoes.models.Atendimento;
+import com.plataforma.explicacoes.models.Cadeira;
+import com.plataforma.explicacoes.models.Horario;
+import com.plataforma.explicacoes.models.Idioma;
+import com.plataforma.explicacoes.models.Qualificacao;
+import com.plataforma.explicacoes.models.Curso;
+import com.plataforma.explicacoes.models.Professor;
+import com.plataforma.explicacoes.models.Aluno;
+import com.plataforma.explicacoes.models.Faculdade;
+import com.plataforma.explicacoes.models.Universidade;
 
-import com.plataforma.explicacoes.models.*;
 import com.plataforma.explicacoes.models.builders.AtendimentoBuilder;
 import com.plataforma.explicacoes.models.builders.ProfessorBuilder;
 import com.plataforma.explicacoes.models.builders.UniversidadeBuilder;
-import com.plataforma.explicacoes.repositories.*;
+import com.plataforma.explicacoes.repositories.ProfessorRepo;
+import com.plataforma.explicacoes.repositories.UniversidadeRepo;
+import com.plataforma.explicacoes.repositories.IdiomaRepo;
+import com.plataforma.explicacoes.repositories.AtendimentoRepo;
+import com.plataforma.explicacoes.repositories.QualificacaoRepo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
