@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.Entity;
 import javax.persistence.GenerationType;
@@ -52,6 +53,8 @@ public class Professor {
     @JsonIgnore
     private Set<Cadeira> cadeiras = new HashSet<>();
     @ManyToOne
+    @EqualsAndHashCode.Exclude
+
     @JsonBackReference(value = "curso_professores")
     private Curso curso;
     @ManyToOne

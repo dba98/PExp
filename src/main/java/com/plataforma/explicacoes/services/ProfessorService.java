@@ -1,6 +1,7 @@
 package com.plataforma.explicacoes.services;
 
 import com.plataforma.explicacoes.exceptions.ProfessorDoesNotExistException;
+import com.plataforma.explicacoes.models.Curso;
 import com.plataforma.explicacoes.models.Professor;
 import com.plataforma.explicacoes.repositories.ProfessorRepo;
 import com.plataforma.explicacoes.services.filters.professor.FilterProfessorObject;
@@ -15,10 +16,13 @@ import java.util.Set;
 @Service
 public class ProfessorService {
 
-    private ProfessorRepo professorRepo;
-    private FilterProfessorService filterService;
-
     @Autowired
+    private ProfessorRepo professorRepo;
+    @Autowired
+    private FilterProfessorService filterService;
+    @Autowired
+    private CursoService cursoService;
+
     public ProfessorService (ProfessorRepo professorRepo, FilterProfessorService filterProfessorService){
         this.professorRepo = professorRepo;
         this.filterService = filterProfessorService;
@@ -66,6 +70,24 @@ public class ProfessorService {
        Set<Professor> finalfilter = filterService.filter(professors,filterProfessorObject);
 
         return finalfilter;
+    }
+
+    public Optional<Professor> associeteCurso(Professor professor) {
+        Optional<Professor> optionalProfessor = professorRepo.findById(professor.getId());
+        Optional<Curso> optionalCurso = cursoService.findById(professor.getCurso().getId());
+
+        if (optionalCurso.isEmpty() || optionalProfessor.isEmpty()) {
+            return Optional.empty();
+        }
+
+        optionalProfessor.get().associateCurso(optionalCurso.get());
+        professorRepo.save(optionalProfessor.get());
+        return optionalProfessor;
+
+    }
+
+    /*public boolean checkSobreposicao (Professor professor, Professor auxprofessor){
+
     }
 
 

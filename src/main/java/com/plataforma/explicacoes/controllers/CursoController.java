@@ -23,7 +23,7 @@ public class CursoController {
     @Autowired
     private CursoService cursoService;
 
-    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/faculdade", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Curso> createCurso(@RequestBody Curso curso) throws ConflictedCursoException{
 
         System.out.println(curso);
