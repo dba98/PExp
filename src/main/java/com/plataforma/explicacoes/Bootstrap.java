@@ -61,8 +61,8 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
         Cadeira cadeira2 = new Cadeira("Gramatica da Comunicacao", 2);
 
         Professor professor1 = new ProfessorBuilder().setName("Alessandro Moreira").setNum(11111).
-                setGrau(qualificacao1).addIdioma(idioma1).addCadeira(cadeira1).build();
-        Professor professor2= new ProfessorBuilder().setName("Rui Estrada").setNum(11121).
+                setGrau(qualificacao1).addIdioma(idioma1).addCadeira(cadeira1).addHorario(new Horario(DayOfWeek.THURSDAY,LocalTime.of(10,0), LocalTime.of(12,0))).build();
+        Professor professor2= new ProfessorBuilder().setName("Rui Estrada").addHorario(new Horario(DayOfWeek.MONDAY,LocalTime.of(10,0), LocalTime.of(12,0))).setNum(11121).
                 setGrau(qualificacao2).addIdioma(idioma1).addCadeira(cadeira2).build();
         Professor professor3= new ProfessorBuilder().setName("Feliz Gouveia").setNum(11145).
                 setGrau(qualificacao2).addHorario(new Horario(DayOfWeek.MONDAY,LocalTime.of(10,0), LocalTime.of(12,0))).addIdioma(idioma1).addCadeira(cadeira1).build();

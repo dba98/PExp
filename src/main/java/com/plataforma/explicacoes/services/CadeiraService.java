@@ -1,6 +1,7 @@
 package com.plataforma.explicacoes.services;
 
 import com.plataforma.explicacoes.models.Cadeira;
+import com.plataforma.explicacoes.models.Curso;
 import com.plataforma.explicacoes.repositories.CadeiraRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,9 @@ public class CadeiraService {
 
     @Autowired
     private CadeiraRepo cadeiraRepo;
+
+    @Autowired
+    private CursoService cursoService;
 
     public Set<Cadeira> findAll(){
         Set<Cadeira> cadeiras = new HashSet<>();
@@ -31,9 +35,21 @@ public class CadeiraService {
     }
 
     public Optional<Cadeira> createCadeira (Cadeira cadeira){
-        Optional<Cadeira> optionalCadeira = this.cadeiraRepo.findByName(cadeira.getName());
-        if(optionalCadeira.isEmpty())
-            return Optional.of(this.cadeiraRepo.save(cadeira));
-        return Optional.empty();
+
+        String name = cadeira.getName();
+        Integer codigo = cadeira.getCodigo();
+
+        Optional<Curso> optionalCurso = cursoService.findById(cadeira.getCurso().getId());
+        Optional<Cadeira> optionalCadeira = this.cadeiraRepo.findByCodigo(codigo);
+
+        if(optionalCurso.isEmpty()){ return Optional.empty(); }
+        if(optionalCadeira.isPresent()){ return optionalCadeira; }
+
+        Cadeira cadeira1= new Cadeira(name,codigo);
+        cadeira1.associateCurso(optionalCurso.get());
+
+        this.cadeiraRepo.save(cadeira1);
+        return Optional.of(cadeira1);
+
     }
 }
