@@ -11,8 +11,10 @@ import com.plataforma.explicacoes.models.Faculdade;
 import com.plataforma.explicacoes.models.Universidade;
 
 import com.plataforma.explicacoes.models.builders.AtendimentoBuilder;
+import com.plataforma.explicacoes.models.builders.CursoBuilder;
 import com.plataforma.explicacoes.models.builders.ProfessorBuilder;
 import com.plataforma.explicacoes.models.builders.UniversidadeBuilder;
+import com.plataforma.explicacoes.models.builders.AlunoBuilder;
 import com.plataforma.explicacoes.repositories.ProfessorRepo;
 import com.plataforma.explicacoes.repositories.UniversidadeRepo;
 import com.plataforma.explicacoes.repositories.IdiomaRepo;

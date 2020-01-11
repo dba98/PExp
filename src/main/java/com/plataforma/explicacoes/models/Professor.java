@@ -74,6 +74,7 @@ public class Professor {
         this.setNum(num);
         this.associateQualificacao(grau);
         this.associateCurso(curso);
+
         for (Atendimento atendimento : atendimentos)
             this.addAtendimento(atendimento);
         for (Cadeira cadeira : cadeiras)

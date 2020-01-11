@@ -79,7 +79,7 @@ public class ProfessorController {
 
     @PutMapping(value = "/curso")
     public ResponseEntity<Professor> associeteCurso(@RequestBody Professor professor) throws ProfessorDoesNotExistException {
-        Optional<Professor> optionalProfessor = this.professorService.associeteCurso(professor);
+        Optional<Professor> optionalProfessor = this.professorService.associateCurso(professor);
 
         if(optionalProfessor.isPresent()){
             return ResponseEntity.ok(optionalProfessor.get());
