@@ -94,6 +94,10 @@ public class ProfessorService {
     public boolean checkSobreposicao(Professor professor, Professor newHorariosProfessor) {
         ArrayList<Horario> remove = new ArrayList<>();
         ArrayList<Horario> add = new ArrayList<>();
+        if(professor.getHorarios().isEmpty()){
+            professor.setHorarios(newHorariosProfessor.getHorarios());
+            return true;
+        }
         for (Horario horario : professor.getHorarios()) {
             for (Horario newHorario : newHorariosProfessor.getHorarios()) {
                 if (horario.getDia() == newHorario.getDia()) {

@@ -78,7 +78,7 @@ public class ProfessorController {
     }
 
     @PutMapping(value = "/curso")
-    public ResponseEntity<Professor> associeteCurso(@RequestBody Professor professor) throws ProfessorDoesNotExistException {
+    public ResponseEntity<Professor> associateCurso(@RequestBody Professor professor) throws ProfessorDoesNotExistException {
         Optional<Professor> optionalProfessor = this.professorService.associateCurso(professor);
 
         if(optionalProfessor.isPresent()){
