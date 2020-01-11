@@ -59,7 +59,7 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
         logger.info("Startup");
 
-        Idioma idioma1 = new Idioma("Português");
+        Idioma idioma1 = new Idioma("Portugues");
         Qualificacao qualificacao1 = new Qualificacao("Mestre",3);
         Qualificacao qualificacao2 = new Qualificacao("Doutor",2);
         Qualificacao qualificacao3 = new Qualificacao("Licenciado",1);
@@ -69,11 +69,13 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
         universidade1.addFaculdade(faculdade1);
         
-        Curso curso1= new CursoBuilder().setNome("Engenharia Informática").setCodigo(1).build();
-        Curso curso2= new CursoBuilder().setNome("Ciências da Comunicação").setCodigo(2).build();
+        Curso curso1= new CursoBuilder().setNome("Engenharia Informatica").setCodigo(1).build();
+        Curso curso2= new CursoBuilder().setNome("Ciencias da Comunicacao").setCodigo(2).build();
+        Curso curso3= new CursoBuilder().setNome("CP").setCodigo(3).build();
 
         faculdade1.addCurso(curso1);
         faculdade1.addCurso(curso2);
+        faculdade1.addCurso(curso3);
 
         Cadeira cadeira1 = new Cadeira("Engenharia Software", 1);
         Cadeira cadeira2 = new Cadeira("Gramatica da Comunicacao", 2);

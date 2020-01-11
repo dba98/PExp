@@ -63,6 +63,7 @@ public class ProfessorController {
 
     @GetMapping(value = "/search",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Iterable<Professor>> searchProfessors(@RequestParam Map<String,String> query){
+        System.out.println(query);
         return ResponseEntity.ok(this.professorService.filterProfessors(query));
     }
 
@@ -77,9 +78,9 @@ public class ProfessorController {
         return ResponseEntity.ok(optionalProfessor.get());
     }
 
-    @PutMapping(value = "/curso")
-    public ResponseEntity<Professor> associateCurso(@RequestBody Professor professor) throws ProfessorDoesNotExistException {
-        Optional<Professor> optionalProfessor = this.professorService.associateCurso(professor);
+    @PutMapping(value = "/{curso}")
+    public ResponseEntity<Professor> associateCurso(@RequestBody Professor professor, @PathVariable String curso) throws ProfessorDoesNotExistException {
+        Optional<Professor> optionalProfessor = this.professorService.associateCurso(professor, curso);
 
         if(optionalProfessor.isPresent()){
             return ResponseEntity.ok(optionalProfessor.get());

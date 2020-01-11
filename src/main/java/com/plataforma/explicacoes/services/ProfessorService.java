@@ -72,9 +72,9 @@ public class ProfessorService {
         return finalfilter;
     }
 
-    public Optional<Professor> associateCurso(Professor professor) {
+    public Optional<Professor> associateCurso(Professor professor, String curso) {
         Optional<Professor> optionalProfessor = professorRepo.findById(professor.getId());
-        Optional<Curso> optionalCurso = cursoService.findById(professor.getCurso().getId());
+        Optional<Curso> optionalCurso = cursoService.findByName(curso);
 
         if (optionalCurso.isEmpty() || optionalProfessor.isEmpty()) {
             return Optional.empty();

@@ -34,12 +34,12 @@ public class CadeiraService {
         return this.cadeiraRepo.findByName(name);
     }
 
-    public Optional<Cadeira> createCadeira (Cadeira cadeira){
+    public Optional<Cadeira> createCadeira (Cadeira cadeira, String curso){
 
         String name = cadeira.getName();
         Integer codigo = cadeira.getCodigo();
 
-        Optional<Curso> optionalCurso = cursoService.findById(cadeira.getCurso().getId());
+        Optional<Curso> optionalCurso = cursoService.findByName(curso);
         Optional<Cadeira> optionalCadeira = this.cadeiraRepo.findByCodigo(codigo);
 
         if(optionalCurso.isEmpty()){ return Optional.empty(); }
