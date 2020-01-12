@@ -15,6 +15,7 @@ public class ProfessorFilterByCurso implements FilterI<Professor>{
 
     @Override
     public Set<Professor> filter(Set<Professor> entities){
+        System.out.println(entities);
         if(curso == null){
             return entities;
         }

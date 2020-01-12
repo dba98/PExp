@@ -8,7 +8,7 @@ import java.util.Set;
 @Service
 public class FilterProfessorService {
     public Set<Professor> filter(Set<Professor> professors, FilterProfessorObject filterProfessorObject) {
-        System.out.println(filterProfessorObject);
+
 
         FilterI<Professor> professorFilterByCurso = new ProfessorFilterByCurso(filterProfessorObject.getCurso());
         FilterI<Professor> professorFilterByDia = new ProfessorFilterByDia(filterProfessorObject.getDia());
