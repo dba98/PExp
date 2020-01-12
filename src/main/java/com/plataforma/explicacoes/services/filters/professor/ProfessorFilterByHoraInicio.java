@@ -21,7 +21,7 @@ public class ProfessorFilterByHoraInicio implements FilterI<Professor>{
         Set<Professor> professors = new HashSet<>();
         for (Professor professor : entitites){
             for (Horario horario : professor.getHorarios()){
-                if (horario.getInicio().isBefore(this.inicio))
+                if (horario.getInicio().equals(inicio))
                     professors.add(professor);
             }
         }
