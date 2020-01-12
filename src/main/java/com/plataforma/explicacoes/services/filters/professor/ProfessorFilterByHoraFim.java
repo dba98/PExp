@@ -13,7 +13,7 @@ public class ProfessorFilterByHoraFim implements FilterI<Professor>{
     public ProfessorFilterByHoraFim(LocalTime fim){
         this.fim = fim;
     }
-
+    @Override
     public Set<Professor> filter(Set<Professor> entitites){
         if(this.fim == null)
             return entitites;
