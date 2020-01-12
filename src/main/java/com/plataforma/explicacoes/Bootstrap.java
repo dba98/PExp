@@ -1,26 +1,10 @@
 package com.plataforma.explicacoes;
-import com.plataforma.explicacoes.models.Atendimento;
-import com.plataforma.explicacoes.models.Cadeira;
-import com.plataforma.explicacoes.models.Horario;
-import com.plataforma.explicacoes.models.Idioma;
-import com.plataforma.explicacoes.models.Qualificacao;
-import com.plataforma.explicacoes.models.Curso;
-import com.plataforma.explicacoes.models.Professor;
-import com.plataforma.explicacoes.models.Aluno;
-import com.plataforma.explicacoes.models.Faculdade;
-import com.plataforma.explicacoes.models.Universidade;
-
+import com.plataforma.explicacoes.models.*;
+import com.plataforma.explicacoes.models.builders.AlunoBuilder;
 import com.plataforma.explicacoes.models.builders.AtendimentoBuilder;
 import com.plataforma.explicacoes.models.builders.CursoBuilder;
 import com.plataforma.explicacoes.models.builders.ProfessorBuilder;
-import com.plataforma.explicacoes.models.builders.UniversidadeBuilder;
-import com.plataforma.explicacoes.models.builders.AlunoBuilder;
-import com.plataforma.explicacoes.repositories.ProfessorRepo;
-import com.plataforma.explicacoes.repositories.UniversidadeRepo;
-import com.plataforma.explicacoes.repositories.IdiomaRepo;
-import com.plataforma.explicacoes.repositories.AtendimentoRepo;
-import com.plataforma.explicacoes.repositories.QualificacaoRepo;
-
+import com.plataforma.explicacoes.repositories.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,8 +30,6 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
     @Autowired
     private QualificacaoRepo qualificacaoRepo;
 
-    @Autowired
-    private ProfessorRepo professorRepo;
 
     @Autowired
     private AtendimentoRepo atendimentoRepo;
@@ -63,12 +45,13 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
         Qualificacao qualificacao1 = new Qualificacao("Mestre",3);
         Qualificacao qualificacao2 = new Qualificacao("Doutor",2);
         Qualificacao qualificacao3 = new Qualificacao("Licenciado",1);
-        Universidade universidade1 = new UniversidadeBuilder().setName("UFP").build();
+        Universidade universidade = new Universidade();
 
-        Faculdade faculdade1 = new Faculdade("Faculdade de Ciencias", universidade1);
+        Faculdade faculdade1 = new Faculdade("Faculdade de Ciencias", universidade);
+        universidade.addFaculdade(faculdade1);
 
-        universidade1.addFaculdade(faculdade1);
-        
+
+
         Curso curso1= new CursoBuilder().setNome("Engenharia Informatica").setCodigo(1).build();
         Curso curso2= new CursoBuilder().setNome("Ciencias da Comunicacao").setCodigo(2).build();
         Curso curso3= new CursoBuilder().setNome("CP").setCodigo(3).build();
@@ -121,7 +104,7 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
 
 
-        this.universidadeRepo.save(universidade1);
+        this.universidadeRepo.save(universidade);
         this.idiomaRepo.save(idioma1);
         this.qualificacaoRepo.save(qualificacao1);
         this.qualificacaoRepo.save(qualificacao2);
