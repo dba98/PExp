@@ -27,12 +27,12 @@ public class FaculdadeService {
         return this.faculdadeRepo.findById(id);
     }
 
-    public Optional<Faculdade> findByName( String name){
-        return  this.faculdadeRepo.findByName(name);
+    public Optional<Faculdade> findByNome( String name){
+        return  this.faculdadeRepo.findByNome(name);
     }
 
     public Optional<Faculdade> createFaculdade(Faculdade faculdade){
-        Optional<Faculdade> optionalFaculdade = this.faculdadeRepo.findByName(faculdade.getName());
+        Optional<Faculdade> optionalFaculdade = this.faculdadeRepo.findByNome(faculdade.getNome());
         if(optionalFaculdade.isEmpty())
             return  Optional.of(this.faculdadeRepo.save(faculdade));
         return Optional.empty();

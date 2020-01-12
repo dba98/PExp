@@ -28,7 +28,7 @@ public class Professor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
+    private String nome;
     private int num;
 
     @OneToMany(mappedBy = "professor", cascade = CascadeType.PERSIST)
@@ -63,14 +63,14 @@ public class Professor {
     //@JsonManagedReference(value = "professor_qualificacao")
     private Qualificacao grau;
 
-    public Professor(String name, int num) {
-        this.setName(name);
+    public Professor(String nome, int num) {
+        this.setNome(nome);
         this.setNum(num);
     }
 
-    public Professor(Long id, String name, int num, Qualificacao grau, Curso curso, Set<Cadeira> cadeiras, Set<Atendimento> atendimentos, Set<Idioma> idiomas, Set<Horario> horarios) {
+    public Professor(Long id, String nome, int num, Qualificacao grau, Curso curso, Set<Cadeira> cadeiras, Set<Atendimento> atendimentos, Set<Idioma> idiomas, Set<Horario> horarios) {
         this.setId(id);
-        this.setName(name);
+        this.setNome(nome);
         this.setNum(num);
         this.associateQualificacao(grau);
         this.associateCurso(curso);

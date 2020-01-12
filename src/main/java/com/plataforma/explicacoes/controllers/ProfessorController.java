@@ -9,6 +9,7 @@ import com.plataforma.explicacoes.services.ProfessorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -44,7 +45,7 @@ public class ProfessorController {
     @RequestMapping(value = "/{name}",method = RequestMethod.GET)
     public ResponseEntity<Professor> getProfessorByName(@PathVariable("name") String name) throws ProfessorDoesNotExistException {
         this.logger.info("Received a get request with a name");
-        Optional<Professor> optionalProfessor = this.professorService.findByName(name);
+        Optional<Professor> optionalProfessor = this.professorService.findByNome(name);
         if(optionalProfessor.isPresent()){
             return ResponseEntity.ok(optionalProfessor.get());
         }
@@ -55,8 +56,14 @@ public class ProfessorController {
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Professor> createProfessor(@RequestBody Professor professor) throws ProfessorAlreadyExistException {
         Optional<Professor> optionalProfessor = this.professorService.createProfessor(professor);
-        if (optionalProfessor.isEmpty()) {
-            throw new ProfessorAlreadyExistException(professor.getName());
+        try {
+            if (optionalProfessor.isEmpty()) {
+                throw new ProfessorAlreadyExistException("");
+                //return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            }
+        }catch (ProfessorAlreadyExistException erro){
+            logger.error("Professor Existente");
+            return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
         return ResponseEntity.ok(optionalProfessor.get());
     }
@@ -82,11 +89,17 @@ public class ProfessorController {
     public ResponseEntity<Professor> associateCurso(@RequestBody Professor professor, @PathVariable String curso) throws ProfessorDoesNotExistException {
         Optional<Professor> optionalProfessor = this.professorService.associateCurso(professor, curso);
 
-        if(optionalProfessor.isPresent()){
-            return ResponseEntity.ok(optionalProfessor.get());
-        }else{
-            throw new ProfessorDoesNotExistException("Professor ou Curso não encontrado");
+        try {
+            if (optionalProfessor.isEmpty()) {
+                throw new ProfessorDoesNotExistException("");
+                //return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            }
+        }catch (ProfessorDoesNotExistException erro){
+            logger.error("Professor Não Existe");
+            return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
+
+        return ResponseEntity.ok(optionalProfessor.get());
 
     }
 

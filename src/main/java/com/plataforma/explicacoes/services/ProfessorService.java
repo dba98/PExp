@@ -40,15 +40,15 @@ public class ProfessorService {
     }
 
     public Optional<Professor> createProfessor(Professor professor) {
-        Optional<Professor> optionalProfessor = this.professorRepo.findByName(professor.getName());
+        Optional<Professor> optionalProfessor = this.professorRepo.findByNome(professor.getNome());
         if (optionalProfessor.isEmpty()) {
             return Optional.of(this.professorRepo.save(professor));
         }
         return Optional.empty();
     }
 
-    public Optional<Professor> findByName(String name) {
-        return this.professorRepo.findByName(name);
+    public Optional<Professor> findByNome(String name) {
+        return this.professorRepo.findByNome(name);
     }
 
     public Optional<Professor> createHorario(Professor professor) throws ProfessorDoesNotExistException {
@@ -73,8 +73,8 @@ public class ProfessorService {
     }
 
     public Optional<Professor> associateCurso(Professor professor, String curso) {
-        Optional<Professor> optionalProfessor = professorRepo.findById(professor.getId());
-        Optional<Curso> optionalCurso = cursoService.findByName(curso);
+        Optional<Professor> optionalProfessor = professorRepo.findByNome(professor.getNome());
+        Optional<Curso> optionalCurso = cursoService.findByNome(curso);
 
         if (optionalCurso.isEmpty() || optionalProfessor.isEmpty()) {
             return Optional.empty();

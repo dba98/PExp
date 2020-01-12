@@ -19,7 +19,7 @@ class ProfessorBuilderTest {
                 setGrau(new Qualificacao()).setCadeiras(new HashSet<>()).setIdiomas(new HashSet<>());
         Professor professor= professorBuilder.build();
 
-        assertNotNull(professor.getName());
+        assertNotNull(professor.getNome());
         assertNotNull(professor.getId());
         assertNotNull(professor.getGrau());
         assertNotNull(professor.getCadeiras());

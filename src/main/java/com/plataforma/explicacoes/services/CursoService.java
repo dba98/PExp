@@ -18,11 +18,11 @@ public class CursoService {
     private FaculdadeService faculdadeService;
 
     public Optional<Curso> findById(Long id){ return this.cursoRepo.findById(id);}
-    public Optional<Curso> findByName(String name){ return this.cursoRepo.findByNome(name);}
+    public Optional<Curso> findByNome(String name){ return this.cursoRepo.findByNome(name);}
 
     public Optional<Curso> createCurso (Curso curso,String faculdade){
 
-        Optional<Faculdade> optionalFaculdade = faculdadeService.findByName(faculdade);
+        Optional<Faculdade> optionalFaculdade = faculdadeService.findByNome(faculdade);
         String name = curso.getNome();
         Integer codigo = curso.getCodigo();
         Optional<Curso> optionalCurso = cursoRepo.findByCodigo(codigo);

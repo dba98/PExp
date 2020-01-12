@@ -23,8 +23,8 @@ public class Universidade {
     private Set<Faculdade> faculdade = new HashSet<>();
 
     public Universidade() {
-        this.name = "UFP";
-        this.port= 8081;
+        this.name = "FEUP";
+        this.port= 8082;
     }
 
     public void addFaculdade(Faculdade faculdade){

@@ -5,6 +5,7 @@ import com.plataforma.explicacoes.services.CursoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -25,13 +26,19 @@ public class CursoController {
     private CursoService cursoService;
 
     @PostMapping(value = "/{faculdade}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Curso> createCurso(@RequestBody Curso curso, @PathVariable String faculdade) throws ConflictedCursoException{
+    public ResponseEntity<Curso> createCurso(@RequestBody Curso curso, @PathVariable String faculdade) {
 
         System.out.println(curso);
 
         Optional<Curso> optionalCurso = this.cursoService.createCurso(curso,faculdade);
-        if (optionalCurso.isEmpty()){
-            throw new CursoController.ConflictedCursoException("");
+        try {
+            if (optionalCurso.isEmpty()) {
+                throw new ConflictedCursoException("");
+                //return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            }
+        }catch (ConflictedCursoException erro){
+            logger.error("Curso Existente");
+            return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
 
         return ResponseEntity.ok(optionalCurso.get());
@@ -39,7 +46,7 @@ public class CursoController {
 
 
 
-    private static class ConflictedCursoException extends Throwable {
+    private static class ConflictedCursoException extends RuntimeException {
         public ConflictedCursoException(String s) { super("Curso Existente");}
     }
 }

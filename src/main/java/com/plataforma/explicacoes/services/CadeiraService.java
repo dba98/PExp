@@ -39,7 +39,7 @@ public class CadeiraService {
         String name = cadeira.getName();
         Integer codigo = cadeira.getCodigo();
 
-        Optional<Curso> optionalCurso = cursoService.findByName(curso);
+        Optional<Curso> optionalCurso = cursoService.findByNome(curso);
         Optional<Cadeira> optionalCadeira = this.cadeiraRepo.findByCodigo(codigo);
 
         if(optionalCurso.isEmpty()){ return Optional.empty(); }
