@@ -85,7 +85,7 @@ public class CadeiraControllerTest {
         when(this.cadeiraService.createCadeira(cadeira, curso.getNome())).thenReturn(Optional.of(cadeira));
 
         this.mockMvc.perform(
-                post("/cadeira").contentType(MediaType.APPLICATION_JSON).content(jsonRequest)
+                post("/cadeira/"+curso.getNome()).contentType(MediaType.APPLICATION_JSON).content(jsonRequest)
         ).andExpect(
                 status().isOk()
         );

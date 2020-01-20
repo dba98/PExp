@@ -34,7 +34,7 @@ class FaculdadeControllerTest {
     @Test
     void createFaculdade() throws Exception {
         Universidade uni = new Universidade();
-        Faculdade faculdade = new Faculdade("Faculdade Medicina Dentaria",uni);
+        Faculdade faculdade = new Faculdade("Faculdade Medicina Dentaria");
 
         String jsonRequest=this.objectMapper.writeValueAsString(faculdade);
 
@@ -51,7 +51,7 @@ class FaculdadeControllerTest {
     void getAllFaculdade() throws Exception {
 
         Universidade uni = new Universidade();
-        Faculdade faculdade = new Faculdade("Faculdade Medicina Dentaria",uni);
+        Faculdade faculdade = new Faculdade("Faculdade Medicina Dentaria");
         faculdade.setId(1L);
 
         when(this.faculdadeService.findById(1L)).thenReturn(Optional.of(faculdade));
@@ -69,7 +69,7 @@ class FaculdadeControllerTest {
     void getFaculdadeById() throws Exception {
 
         Universidade uni = new Universidade();
-        Faculdade faculdade = new Faculdade("Faculdade Medicina Dentaria",uni);
+        Faculdade faculdade = new Faculdade("Faculdade Medicina Dentaria");
         faculdade.setId(1L);
 
         when(this.faculdadeService.findById(1L)).thenReturn(Optional.of(faculdade));

@@ -47,7 +47,7 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
         Qualificacao qualificacao3 = new Qualificacao("Licenciado",1);
         Universidade universidade = new Universidade();
 
-        Faculdade faculdade1 = new Faculdade("Faculdade de Ciencias", universidade);
+        Faculdade faculdade1 = new Faculdade("Faculdade de Ciencias");
         universidade.addFaculdade(faculdade1);
 
 

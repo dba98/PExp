@@ -52,9 +52,13 @@ public class ProfessorService {
     }
 
     public Optional<Professor> createHorario(Professor professor) throws ProfessorDoesNotExistException {
+        System.out.println(professor);
         Optional<Professor> optionalProfessor = professorRepo.findByNum(professor.getNum());
         if (optionalProfessor.isEmpty()) {
-            throw new ProfessorDoesNotExistException("Professor inexistente");
+            optionalProfessor = professorRepo.findByNome(professor.getNome());
+            if (optionalProfessor.isEmpty()) {
+                throw new ProfessorDoesNotExistException("Professor inexistente");
+            }
         }
         //Professor auxprofessor = optionalProfessor.get();
         //optionalProfessor.get().setHorarios(professor.getHorarios());
@@ -82,6 +86,8 @@ public class ProfessorService {
 
         optionalProfessor.get().associateCurso(optionalCurso.get());
         professorRepo.save(optionalProfessor.get());
+        optionalProfessor = professorRepo.findByNome(professor.getNome());
+
         return optionalProfessor;
 
     }

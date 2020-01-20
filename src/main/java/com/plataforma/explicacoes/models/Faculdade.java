@@ -39,10 +39,8 @@ public class Faculdade {
     @JsonManagedReference(value = "faculdade_curso")
     private Set<Curso> cursos= new HashSet<>();
 
-    public Faculdade(String nome, Universidade universidade) {
+    public Faculdade(String nome) {
         this.setNome(nome);
-        this.setUniversidade(universidade);
-
     }
 
     public void addCurso(Curso curso){

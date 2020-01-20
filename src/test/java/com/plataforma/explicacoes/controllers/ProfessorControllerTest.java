@@ -1,11 +1,8 @@
 package com.plataforma.explicacoes.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.plataforma.explicacoes.models.Cadeira;
-import com.plataforma.explicacoes.models.Horario;
-import com.plataforma.explicacoes.models.Idioma;
-import com.plataforma.explicacoes.models.Qualificacao;
-import com.plataforma.explicacoes.models.Professor;
+import com.plataforma.explicacoes.exceptions.ProfessorDoesNotExistException;
+import com.plataforma.explicacoes.models.*;
 import com.plataforma.explicacoes.models.builders.ProfessorBuilder;
 import com.plataforma.explicacoes.services.ProfessorService;
 import org.junit.jupiter.api.Test;
@@ -18,15 +15,11 @@ import org.springframework.web.util.NestedServletException;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
-import java.util.HashSet;
 import java.util.Optional;
-import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(controllers = ProfessorController.class)
@@ -41,6 +34,7 @@ class ProfessorControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+    /*
     @Test
     private Set<Professor> getAllProfessores() {
         Set<Professor> professores = new HashSet<>();
@@ -49,6 +43,8 @@ class ProfessorControllerTest {
         }
         return professores;
     }
+    */
+
 
     @Test
     void getProfessorByName() throws Exception {
@@ -70,11 +66,44 @@ class ProfessorControllerTest {
     }
 
     @Test
-    void createHorario() {
-       /* Professor professor = new ProfessorBuilder().setId(1L).setName("Alessandro Moreira").setNum(35234).setGrau(new Qualificacao("Mestre", 2)).addCadeira(new Cadeira("Matematica", 123)).addIdioma(new Idioma("Portugues")).build();
-        Horario Horario = new Horario(DayOfWeek.MONDAY, LocalTime.of(10, 0), LocalTime.of(12, 0));*/
+    void createHorario() throws ProfessorDoesNotExistException, Exception {
 
+        Professor professor = new Professor("Alessandro", 3234);
+        Horario horario= new Horario(DayOfWeek.MONDAY, LocalTime.of(10, 0), LocalTime.of(12, 0));
+        professor.addHorario(horario);
+        String jsonRequest = this.objectMapper.writeValueAsString(professor);
+        when(this.professorService.createHorario(professor)).thenReturn(Optional.of(professor));
+
+        String responseJson = this.mockMvc.perform(put("/professor").contentType(MediaType.APPLICATION_JSON).content(jsonRequest)).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        Professor responseProfessor = this.objectMapper.readValue(responseJson, Professor.class);
+
+        assertTrue(responseProfessor.getHorarios().contains(horario));
     }
 
 
+    @Test
+    void searchProfessors() {
+    }
+
+    @Test
+    void associateCurso() throws Exception{
+        Professor professor = new Professor("Alessandro", 3234);
+        Curso curso = new Curso("Redes");
+
+        String jsonRequest = this.objectMapper.writeValueAsString(professor);
+        when(this.professorService.associateCurso(professor,curso.getNome())).thenReturn(Optional.of(professor));
+        String responseJson = this.mockMvc.perform(put("/professor/"+curso.getNome()).contentType(MediaType.APPLICATION_JSON).content(jsonRequest)).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        Professor responseProfessor = this.objectMapper.readValue(responseJson, Professor.class);
+        System.out.println(responseProfessor);
+        assertEquals(responseProfessor.getCurso(), curso);
+
+       this.mockMvc.perform(put("/professor/R").contentType(MediaType.APPLICATION_JSON).content(jsonRequest)).andExpect(status().isBadRequest());
+
+
+
+
+
+
+
+    }
 }
