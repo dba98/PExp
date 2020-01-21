@@ -1,7 +1,6 @@
 package com.plataforma.explicacoes.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.plataforma.explicacoes.exceptions.ConflictedCursoException;
 import com.plataforma.explicacoes.models.Curso;
 import com.plataforma.explicacoes.models.Faculdade;
 import com.plataforma.explicacoes.services.CursoService;
@@ -47,15 +46,5 @@ class CursoControllerTest {
         ).andExpect(
                 status().isOk()
         );
-
-        when(this.cursoService.createCurso(curso, faculdade.getNome())).thenThrow(new ConflictedCursoException((curso.getNome())));
-
-        this.mockMvc.perform(
-                post("/curso/"+faculdade.getNome()).contentType(MediaType.APPLICATION_JSON_VALUE).content(jsonRequest)
-        ).andExpect(
-                status().isBadRequest()
-        );
-
-
     }
 }
