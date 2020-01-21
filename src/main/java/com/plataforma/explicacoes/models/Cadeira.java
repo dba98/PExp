@@ -45,6 +45,13 @@ public class Cadeira {
         this.setCodigo(codigo);
     }
 
+    public Cadeira(String name, Integer codigo, Set<Professor> professores, Curso curso) {
+        this.name = name;
+        this.codigo = codigo;
+        this.professores = professores;
+        this.curso = curso;
+    }
+
     public void associateCurso(Curso curso){
         this.setCurso(curso);
     }
