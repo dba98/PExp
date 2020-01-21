@@ -10,7 +10,9 @@ import com.plataforma.explicacoes.models.Aluno;
 import com.plataforma.explicacoes.models.Faculdade;
 import com.plataforma.explicacoes.models.Universidade;
 
-import com.plataforma.explicacoes.models.builders.*;
+import com.plataforma.explicacoes.models.builders.AtendimentoBuilder;
+import com.plataforma.explicacoes.models.builders.ProfessorBuilder;
+import com.plataforma.explicacoes.models.builders.UniversidadeBuilder;
 import com.plataforma.explicacoes.repositories.ProfessorRepo;
 import com.plataforma.explicacoes.repositories.UniversidadeRepo;
 import com.plataforma.explicacoes.repositories.IdiomaRepo;
@@ -71,9 +73,8 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
         faculdade1.addCurso(curso1);
         faculdade1.addCurso(curso2);
 
-        Cadeira cadeira1 = new CadeiraBuilder().setName("Engenharia de Software").setCodigo(1).build();
-        Cadeira cadeira2 = new CadeiraBuilder().setName("Gramatica da Comunicaçao").setCodigo(2).build();
-
+        Cadeira cadeira1 = new Cadeira("Engenharia Software", 1);
+        Cadeira cadeira2 = new Cadeira("Gramatica da Comunicacao", 2);
 
         Professor professor1 = new ProfessorBuilder().setName("Alessandro Moreira").setNum(11111).
                 setGrau(qualificacao1).addIdioma(idioma1).addCadeira(cadeira1).addHorario(new Horario(DayOfWeek.THURSDAY,LocalTime.of(10,0), LocalTime.of(12,0))).build();
