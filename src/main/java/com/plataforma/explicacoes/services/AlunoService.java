@@ -15,29 +15,28 @@ public class AlunoService {
     @Autowired
     private AlunoRepo alunoRepo;
 
-    public Set<Aluno> findAll(){
+    public Set<Aluno> findAll() {
         Set<Aluno> alunos = new HashSet<>();
-        for (Aluno a1 : this.alunoRepo.findAll()){
+        for (Aluno a1 : this.alunoRepo.findAll()) {
             alunos.add(a1);
         }
         return alunos;
     }
 
-    public Optional<Aluno> findById(Long id){
-
+    public Optional<Aluno> findById(Long id) {
         return this.alunoRepo.findById(id);
 
     }
 
-    public Optional<Aluno> findByName( String name){
+    public Optional<Aluno> findByName(String name) {
 
         return this.alunoRepo.findByName(name);
     }
 
-    public Optional<Aluno> createAluno (Aluno aluno){
+    public Optional<Aluno> createAluno(Aluno aluno) {
         Optional<Aluno> optionalAluno = this.alunoRepo.findByName(aluno.getName());
-        if(optionalAluno.isEmpty()){
-            Aluno createdAluno =this.alunoRepo.save(aluno);
+        if (optionalAluno.isEmpty()) {
+            Aluno createdAluno = this.alunoRepo.save(aluno);
             return Optional.of(createdAluno);
         }
         return Optional.empty();
