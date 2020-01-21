@@ -1,20 +1,16 @@
 package com.plataforma.explicacoes.controllers;
 
+import com.plataforma.explicacoes.exceptions.CadeiraAlreadyExistsException;
+import com.plataforma.explicacoes.exceptions.NoCadeiraException;
 import com.plataforma.explicacoes.models.Cadeira;
 import com.plataforma.explicacoes.services.CadeiraService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -34,7 +30,7 @@ public class CadeiraController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public  ResponseEntity<Cadeira> getCadeiraById (@PathVariable("id") Long id) throws CadeiraController.NoCadeiraException {
+    public  ResponseEntity<Cadeira> getCadeiraById (@PathVariable("id") Long id) throws NoCadeiraException {
         this.logger.info("Received a get request");
 
         Optional<Cadeira> optionalCadeira = this.cadeiraService.findById(id);
@@ -44,7 +40,7 @@ public class CadeiraController {
     }
 
     @RequestMapping(value = "/name/{name}", method = RequestMethod.GET)
-    public  ResponseEntity<Cadeira> getCadeiraByName (@PathVariable("name") String name) throws CadeiraController.NoCadeiraException {
+    public  ResponseEntity<Cadeira> getCadeiraByName (@PathVariable("name") String name) throws NoCadeiraException {
         this.logger.info("Received a get request");
 
         Optional<Cadeira> optionalCadeira = this.cadeiraService.findByName(name);
@@ -62,25 +58,6 @@ public class CadeiraController {
             return ResponseEntity.ok(optionalCadeira.get());
         throw new CadeiraAlreadyExistsException(cadeira.getName());
     }
-    // -------------  Exception --------------------
-    @ResponseStatus( value = HttpStatus.NOT_FOUND, reason = "No such Cadeira")
-    private static class NoCadeiraException extends RuntimeException {
 
-        private NoCadeiraException(Long id) {
-            super("No such Cadeira with id: "+id);
-        }
-
-        private NoCadeiraException(String name) {
-            super("No such Cadeira with name: "+name);
-        }
-    }
-
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Cadeira already exits")
-    private static class CadeiraAlreadyExistsException extends RuntimeException {
-
-        private CadeiraAlreadyExistsException(String name) {
-            super("A cadeira with name: "+name+"already exists");
-        }
-    }
 
 }

@@ -1,6 +1,7 @@
 package com.plataforma.explicacoes.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.plataforma.explicacoes.exceptions.CadeiraAlreadyExistsException;
 import com.plataforma.explicacoes.models.Cadeira;
 import com.plataforma.explicacoes.models.Curso;
 import com.plataforma.explicacoes.services.CadeiraService;
@@ -10,10 +11,12 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.util.NestedServletException;
 
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -43,7 +46,7 @@ public class CadeiraControllerTest {
                 get("/cadeira")
         ).andExpect(
                 status().isOk()
-        ).andReturn().getResponse().getContentAsString();
+        );
 
 
     }
@@ -62,16 +65,41 @@ public class CadeiraControllerTest {
                 status().isOk()
         ).andReturn().getResponse().getContentAsString();
 
+
         Cadeira responseCadeira = this.objectMapper.readValue(responseJson, Cadeira.class);
         assertEquals(cadeira, responseCadeira);
 
-        this.mockMvc.perform(
+        assertThrows(NestedServletException.class, () -> this.mockMvc.perform(
                 get("/cadeira/2")
         ).andExpect(
                 status().isNotFound()
-        );
+        ));
 
 
+    }
+
+    @Test
+    void getCadeiraByName() throws Exception {
+
+        Cadeira cadeira = new Cadeira("Matematica",35249);
+        cadeira.setId(1L);
+
+        when(this.cadeiraService.findByName("Matematica")).thenReturn(Optional.of(cadeira));
+
+        String responseJson = this.mockMvc.perform(
+                get("/cadeira/name/"+cadeira.getName())
+        ).andExpect(
+                status().isOk()
+        ).andReturn().getResponse().getContentAsString();
+
+        Cadeira responseCadeira = this.objectMapper.readValue(responseJson, Cadeira.class);
+        assertEquals(cadeira, responseCadeira);
+
+        assertThrows(NestedServletException.class, () -> this.mockMvc.perform(
+                get("/cadeira/name/R")
+        ).andExpect(
+                status().isNotFound()
+        ));
     }
 
     @Test
@@ -90,5 +118,15 @@ public class CadeiraControllerTest {
                 status().isOk()
         );
 
+        when(this.cadeiraService.createCadeira(cadeira, curso.getNome())).thenThrow(new CadeiraAlreadyExistsException(cadeira.getName()));
+
+        this.mockMvc.perform(
+                post("/cadeira/"+curso.getNome()).contentType(MediaType.APPLICATION_JSON).content(jsonRequest)
+        ).andExpect(
+                status().isBadRequest()
+        );
+
     }
+
+
 }

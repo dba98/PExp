@@ -1,11 +1,11 @@
 package com.plataforma.explicacoes.controllers;
 
+import com.plataforma.explicacoes.exceptions.ConflictedCursoException;
 import com.plataforma.explicacoes.models.Curso;
 import com.plataforma.explicacoes.services.CursoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -29,24 +29,14 @@ public class CursoController {
     public ResponseEntity<Curso> createCurso(@RequestBody Curso curso, @PathVariable String faculdade) {
 
         System.out.println(curso);
-
         Optional<Curso> optionalCurso = this.cursoService.createCurso(curso,faculdade);
-        try {
-            if (optionalCurso.isEmpty()) {
-                throw new ConflictedCursoException("");
-                //return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-            }
-        }catch (ConflictedCursoException erro){
-            logger.error("Curso Existente");
-            return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+
+        if(optionalCurso.isPresent()){
+            return ResponseEntity.ok(optionalCurso.get());
         }
 
-        return ResponseEntity.ok(optionalCurso.get());
+        throw new ConflictedCursoException(curso.getNome());
+
     }
 
-
-
-    private static class ConflictedCursoException extends RuntimeException {
-        public ConflictedCursoException(String s) { super("Curso Existente");}
-    }
 }

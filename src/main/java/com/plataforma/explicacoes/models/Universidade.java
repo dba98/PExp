@@ -15,16 +15,29 @@ public class Universidade {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-    private int port;
+    private static String name;
+    private static int port;
+
+    private static Universidade singelton_instance = null;
 
     @OneToMany(mappedBy = "universidade" ,cascade = CascadeType.PERSIST)
     @JsonManagedReference(value = "universidade_faculdade")
     private Set<Faculdade> faculdade = new HashSet<>();
 
-    public Universidade() {
-        this.name = "FEUP";
-        this.port= 8082;
+    private static Universidade getUniversidade() {
+
+        if(singelton_instance == null){
+            singelton_instance = new Universidade();
+        }
+
+        return singelton_instance;
+    }
+
+    public Universidade (){
+
+          name = "FEUP";
+          port= 8082;
+
     }
 
     public void addFaculdade(Faculdade faculdade){

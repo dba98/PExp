@@ -35,6 +35,7 @@ public class AlunoService {
     }
 
     public Optional<Aluno> createAluno (Aluno aluno){
+
         Optional<Aluno> optionalAluno = this.alunoRepo.findByName(aluno.getName());
         if(optionalAluno.isEmpty()){
             Aluno createdAluno =this.alunoRepo.save(aluno);
