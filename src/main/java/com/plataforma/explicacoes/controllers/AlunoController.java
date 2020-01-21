@@ -1,22 +1,16 @@
 package com.plataforma.explicacoes.controllers;
 
+import com.plataforma.explicacoes.exceptions.AlunoAlreadyExistsException;
+import com.plataforma.explicacoes.exceptions.NoAlunoException;
 import com.plataforma.explicacoes.models.Aluno;
 import com.plataforma.explicacoes.services.AlunoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-
-
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -58,37 +52,14 @@ public class AlunoController {
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Aluno> createAluno (@RequestBody Aluno aluno){
+    public ResponseEntity<Aluno> createAluno (@RequestBody Aluno aluno) throws AlunoAlreadyExistsException {
         Optional <Aluno> optionalAluno = this.alunoService.createAluno(aluno);
+
         if(optionalAluno.isPresent()){
             return ResponseEntity.ok(optionalAluno.get());
         }
 
         throw new AlunoAlreadyExistsException(aluno.getName());
-    }
-
-
-
-
-    // -------------  Exception --------------------
-    @ResponseStatus( value = HttpStatus.NOT_FOUND, reason = "No such Aluno")
-    private static class NoAlunoException extends RuntimeException {
-
-        private NoAlunoException(Long id) {
-            super("No such Aluno with id: "+id);
-        }
-
-        private NoAlunoException(String name) {
-            super("No such Aluno with name: "+name);
-        }
-    }
-
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Aluno already exits")
-    private static class AlunoAlreadyExistsException extends RuntimeException {
-
-        private AlunoAlreadyExistsException(String name) {
-            super("A aluno with name: "+name+"already exists");
-        }
     }
 
     

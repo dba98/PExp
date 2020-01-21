@@ -1,11 +1,11 @@
 package com.plataforma.explicacoes.controllers;
 
+import com.plataforma.explicacoes.exceptions.ConflictedAtendimentoException;
 import com.plataforma.explicacoes.models.Atendimento;
 import com.plataforma.explicacoes.services.AtendimentoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -25,33 +25,20 @@ public class AtendimentoController {
     private AtendimentoService atendimentoService;
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Atendimento> createAtendimento(@RequestBody Atendimento atendimento) throws AtendimentoController.ConflictedAtendimentoException {
+    public ResponseEntity<Atendimento> createAtendimento(@RequestBody Atendimento atendimento) throws ConflictedAtendimentoException {
         System.out.println(atendimento);
 
 
         Optional<Atendimento> optionalAtendimento = this.atendimentoService.createAtendimento(atendimento);
-        try {
-            if (optionalAtendimento.isEmpty()) {
-                throw new AtendimentoController.ConflictedAtendimentoException("");
-                //return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-            }
-        }catch (AtendimentoController.ConflictedAtendimentoException erro){
-            logger.error("Atendimento Sobreposto");
-            return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+
+        if(optionalAtendimento.isPresent()){
+            return ResponseEntity.ok(optionalAtendimento.get());
         }
 
-        return ResponseEntity.ok(optionalAtendimento.get());
+        throw new ConflictedAtendimentoException();
 
     }
 
-
-
-
-    private static class ConflictedAtendimentoException extends Throwable {
-        public ConflictedAtendimentoException(String s) {
-            super("Atendimento Sobreposto");
-        }
-    }
 
 
 }
