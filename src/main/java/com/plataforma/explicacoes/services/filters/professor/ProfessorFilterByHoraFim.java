@@ -13,14 +13,14 @@ public class ProfessorFilterByHoraFim implements FilterI<Professor>{
     public ProfessorFilterByHoraFim(LocalTime fim){
         this.fim = fim;
     }
-
+    @Override
     public Set<Professor> filter(Set<Professor> entitites){
         if(this.fim == null)
             return entitites;
         Set<Professor> professors = new HashSet<>();
         for (Professor professor : entitites){
             for (Horario horario : professor.getHorarios()){
-                if (horario.getFim().isAfter(this.fim))
+                if (horario.getFim() == this.fim)
                     professors.add(professor);
             }
         }

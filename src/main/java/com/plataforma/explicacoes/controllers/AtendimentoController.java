@@ -5,6 +5,7 @@ import com.plataforma.explicacoes.services.AtendimentoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -29,9 +30,16 @@ public class AtendimentoController {
 
 
         Optional<Atendimento> optionalAtendimento = this.atendimentoService.createAtendimento(atendimento);
-        if (optionalAtendimento.isEmpty()) {
-            throw new AtendimentoController.ConflictedAtendimentoException("");
+        try {
+            if (optionalAtendimento.isEmpty()) {
+                throw new AtendimentoController.ConflictedAtendimentoException("");
+                //return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            }
+        }catch (AtendimentoController.ConflictedAtendimentoException erro){
+            logger.error("Atendimento Sobreposto");
+            return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
+
         return ResponseEntity.ok(optionalAtendimento.get());
 
     }

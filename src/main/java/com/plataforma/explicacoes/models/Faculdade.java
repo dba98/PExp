@@ -27,7 +27,7 @@ public class Faculdade {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private String nome;
 
     @ManyToOne
     @EqualsAndHashCode.Exclude
@@ -39,10 +39,8 @@ public class Faculdade {
     @JsonManagedReference(value = "faculdade_curso")
     private Set<Curso> cursos= new HashSet<>();
 
-    public Faculdade(String name, Universidade universidade) {
-        this.setName(name);
-        this.setUniversidade(universidade);
-
+    public Faculdade(String nome) {
+        this.setNome(nome);
     }
 
     public void addCurso(Curso curso){

@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface CursoRepo extends CrudRepository<Curso,Long> {
 
     Optional<Curso> findByCodigo(Integer codigo);
+    Optional<Curso> findByNome(String nome);
 }

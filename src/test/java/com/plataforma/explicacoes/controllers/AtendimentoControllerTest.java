@@ -1,11 +1,7 @@
 package com.plataforma.explicacoes.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.plataforma.explicacoes.models.Atendimento;
-import com.plataforma.explicacoes.models.Cadeira;
-import com.plataforma.explicacoes.models.Horario;
-import com.plataforma.explicacoes.models.Aluno;
-import com.plataforma.explicacoes.models.Professor;
+import com.plataforma.explicacoes.models.*;
 import com.plataforma.explicacoes.services.AtendimentoService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +13,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Optional;
 
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -51,7 +49,7 @@ class AtendimentoControllerTest {
 
         String jsonRequest=this.objectMapper.writeValueAsString(atendimento);
 
-        //when(this.atendimentoService.createAtendimento().thenReturn(Optional.of(atendimento)));
+        when(this.atendimentoService.createAtendimento(atendimento)).thenReturn(Optional.of(atendimento));
 
 
         this.mockMvc.perform(

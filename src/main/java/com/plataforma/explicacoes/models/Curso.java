@@ -37,14 +37,16 @@ public class Curso {
     private Faculdade faculdade;
 
     @OneToMany(mappedBy = "curso", cascade = CascadeType.PERSIST)
+    @ToString.Exclude
     @JsonManagedReference(value = "curso_cadeira")
     private Set<Cadeira> cadeiras = new HashSet<>();
 
-    @OneToMany(mappedBy = "curso", cascade = CascadeType.PERSIST)
+    @OneToMany( cascade = CascadeType.PERSIST)
     @JsonManagedReference(value = "curso_alunos")
     private Set<Aluno> alunos = new HashSet<>();
 
-    @OneToMany(mappedBy = "curso", cascade = CascadeType.PERSIST)
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @ToString.Exclude
     @JsonManagedReference(value = "curso_professores")
     private Set<Professor> professores = new HashSet<>();
 
@@ -52,6 +54,10 @@ public class Curso {
     public Curso(String nome, Integer codigo) {
         this.setNome(nome);
         this.setCodigo(codigo);
+    }
+
+    public Curso(String nome){
+        this.setNome(nome);
     }
 
     public Curso(Long id, String nome, Integer codigo, Faculdade faculdade, Set<Professor> professores, Set<Cadeira> cadeiras, Set<Aluno> alunos) {

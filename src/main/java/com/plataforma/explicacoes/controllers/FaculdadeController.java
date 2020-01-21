@@ -37,7 +37,7 @@ public class FaculdadeController {
         Optional<Faculdade> optionalFaculdade = this.faculdadeService.createFaculdade(faculdade);
         if(optionalFaculdade.isPresent())
             return ResponseEntity.ok(optionalFaculdade.get());
-        throw new FaculdadeAlreadyExistsException(faculdade.getName());
+        throw new FaculdadeAlreadyExistsException(faculdade.getNome());
     }
 
     @RequestMapping (method = RequestMethod.GET)
@@ -60,7 +60,7 @@ public class FaculdadeController {
     public  ResponseEntity<Faculdade> getFaculdadeByName (@PathVariable("name") String name) throws NoFaculdadeException {
         this.logger.info("Received a get request");
 
-        Optional<Faculdade> optionalFaculdade = this.faculdadeService.findByName(name);
+        Optional<Faculdade> optionalFaculdade = this.faculdadeService.findByNome(name);
         if(optionalFaculdade.isPresent())
             return ResponseEntity.ok(optionalFaculdade.get());
         throw new NoFaculdadeException(name);

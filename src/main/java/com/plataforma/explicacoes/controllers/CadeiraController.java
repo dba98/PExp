@@ -53,11 +53,11 @@ public class CadeiraController {
         throw new NoCadeiraException(name);
     }
 
-    @PostMapping(value = "/curso", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Cadeira> createCadeira (@RequestBody Cadeira cadeira){
+    @PostMapping(value = "/{curso}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Cadeira> createCadeira (@RequestBody Cadeira cadeira, @PathVariable String curso){
         System.out.println(cadeira);
 
-        Optional <Cadeira> optionalCadeira = this.cadeiraService.createCadeira(cadeira);
+        Optional <Cadeira> optionalCadeira = this.cadeiraService.createCadeira(cadeira,curso);
         if(optionalCadeira.isPresent())
             return ResponseEntity.ok(optionalCadeira.get());
         throw new CadeiraAlreadyExistsException(cadeira.getName());

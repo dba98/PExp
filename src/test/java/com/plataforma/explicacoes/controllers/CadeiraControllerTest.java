@@ -2,6 +2,7 @@ package com.plataforma.explicacoes.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.plataforma.explicacoes.models.Cadeira;
+import com.plataforma.explicacoes.models.Curso;
 import com.plataforma.explicacoes.services.CadeiraService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,13 +78,14 @@ public class CadeiraControllerTest {
     void createCadeira() throws Exception {
 
         Cadeira cadeira = new Cadeira( "cadeira1", 33333) ;
+        Curso curso = new Curso("Redes", 3222);
 
         String jsonRequest=this.objectMapper.writeValueAsString(cadeira);
 
-        when(this.cadeiraService.createCadeira(cadeira)).thenReturn(Optional.of(cadeira));
+        when(this.cadeiraService.createCadeira(cadeira, curso.getNome())).thenReturn(Optional.of(cadeira));
 
         this.mockMvc.perform(
-                post("/cadeira").contentType(MediaType.APPLICATION_JSON).content(jsonRequest)
+                post("/cadeira/"+curso.getNome()).contentType(MediaType.APPLICATION_JSON).content(jsonRequest)
         ).andExpect(
                 status().isOk()
         );

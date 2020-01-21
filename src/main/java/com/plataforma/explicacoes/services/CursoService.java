@@ -18,12 +18,13 @@ public class CursoService {
     private FaculdadeService faculdadeService;
 
     public Optional<Curso> findById(Long id){ return this.cursoRepo.findById(id);}
+    public Optional<Curso> findByNome(String name){ return this.cursoRepo.findByNome(name);}
 
-    public Optional<Curso> createCurso (Curso jsonCurso){
+    public Optional<Curso> createCurso (Curso curso,String faculdade){
 
-        Optional<Faculdade> optionalFaculdade = faculdadeService.findById(jsonCurso.getFaculdade().getId());
-        String name = jsonCurso.getNome();
-        Integer codigo = jsonCurso.getCodigo();
+        Optional<Faculdade> optionalFaculdade = faculdadeService.findByNome(faculdade);
+        String name = curso.getNome();
+        Integer codigo = curso.getCodigo();
         Optional<Curso> optionalCurso = cursoRepo.findByCodigo(codigo);
 
         if(optionalFaculdade.isEmpty()){
@@ -34,10 +35,10 @@ public class CursoService {
             return Optional.empty();
         }
 
-        Curso curso= new Curso(name,codigo);
-        curso.associateFaculdade(optionalFaculdade.get());
+        Curso curso1= new Curso(name,codigo);
+        curso1.associateFaculdade(optionalFaculdade.get());
 
-        this.cursoRepo.save(curso);
-        return Optional.of(curso);
+        this.cursoRepo.save(curso1);
+        return Optional.of(curso1);
     }
 }

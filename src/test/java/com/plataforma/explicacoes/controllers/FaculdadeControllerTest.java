@@ -3,7 +3,6 @@ package com.plataforma.explicacoes.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.plataforma.explicacoes.models.Faculdade;
 import com.plataforma.explicacoes.models.Universidade;
-import com.plataforma.explicacoes.models.builders.UniversidadeBuilder;
 import com.plataforma.explicacoes.services.FaculdadeService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +33,8 @@ class FaculdadeControllerTest {
 
     @Test
     void createFaculdade() throws Exception {
-        Universidade uni = new UniversidadeBuilder().setName("UFP").build();
-        Faculdade faculdade = new Faculdade("Faculdade Medicina Dentaria",uni);
+        Universidade uni = new Universidade();
+        Faculdade faculdade = new Faculdade("Faculdade Medicina Dentaria");
 
         String jsonRequest=this.objectMapper.writeValueAsString(faculdade);
 
@@ -51,8 +50,8 @@ class FaculdadeControllerTest {
     @Test
     void getAllFaculdade() throws Exception {
 
-        Universidade uni = new UniversidadeBuilder().setName("UFP").build();
-        Faculdade faculdade = new Faculdade("Faculdade Medicina Dentaria",uni);
+        Universidade uni = new Universidade();
+        Faculdade faculdade = new Faculdade("Faculdade Medicina Dentaria");
         faculdade.setId(1L);
 
         when(this.faculdadeService.findById(1L)).thenReturn(Optional.of(faculdade));
@@ -69,8 +68,8 @@ class FaculdadeControllerTest {
     @Test
     void getFaculdadeById() throws Exception {
 
-        Universidade uni = new UniversidadeBuilder().setName("UFP").build();
-        Faculdade faculdade = new Faculdade("Faculdade Medicina Dentaria",uni);
+        Universidade uni = new Universidade();
+        Faculdade faculdade = new Faculdade("Faculdade Medicina Dentaria");
         faculdade.setId(1L);
 
         when(this.faculdadeService.findById(1L)).thenReturn(Optional.of(faculdade));
