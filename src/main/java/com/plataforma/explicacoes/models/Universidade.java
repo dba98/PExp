@@ -24,7 +24,7 @@ public class Universidade {
     @JsonManagedReference(value = "universidade_faculdade")
     private Set<Faculdade> faculdade = new HashSet<>();
 
-    private static Universidade getUniversidade() {
+    public static Universidade getUniversidade() {
 
         if(singelton_instance == null){
             singelton_instance = new Universidade();
@@ -33,10 +33,10 @@ public class Universidade {
         return singelton_instance;
     }
 
-    public Universidade (){
+    private Universidade (){
 
-          name = "FEUP";
-          port= 8082;
+          name = "ISEP";
+          port= 8083;
 
     }
 

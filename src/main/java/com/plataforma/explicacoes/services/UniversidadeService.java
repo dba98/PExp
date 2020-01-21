@@ -18,13 +18,13 @@ public class UniversidadeService {
 
     public Universidade getUniversidade() {
 
-        return new Universidade();
+        return Universidade.getUniversidade();
 
     }
 
     public Optional<Universidade> sendUniversidade() {
         HttpHeaders headers = new HttpHeaders();
-        HttpEntity<Universidade> payload=new HttpEntity<>(new Universidade(),headers);
+        HttpEntity<Universidade> payload=new HttpEntity<>(Universidade.getUniversidade(),headers);
 
         try{
             ResponseEntity<Universidade>  universidadeResponseEntity =restTemplate.postForEntity("http://127.0.0.1:8080/universidade",payload,Universidade.class);

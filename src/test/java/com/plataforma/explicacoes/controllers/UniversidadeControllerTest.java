@@ -29,7 +29,7 @@ class UniversidadeControllerTest {
     @Test
     void getUniversidade() throws Exception {
 
-        Universidade universidade = new Universidade();
+        Universidade universidade = Universidade.getUniversidade();
         when(this.universidadeService.getUniversidade()).thenReturn(universidade);
         String responseJson = this.mockMvc.perform(get("/universidade")).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
         Universidade responseUniversidade = this.objectMapper.readValue(responseJson, Universidade.class);
