@@ -20,7 +20,7 @@ public class ProfessorFilterByHoraFim implements FilterI<Professor>{
         Set<Professor> professors = new HashSet<>();
         for (Professor professor : entitites){
             for (Horario horario : professor.getHorarios()){
-                if (horario.getFim().isAfter(this.fim))
+                if (horario.getFim() == this.fim)
                     professors.add(professor);
             }
         }

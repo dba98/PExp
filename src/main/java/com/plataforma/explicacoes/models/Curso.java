@@ -37,6 +37,7 @@ public class Curso {
     private Faculdade faculdade;
 
     @OneToMany(mappedBy = "curso", cascade = CascadeType.PERSIST)
+    @ToString.Exclude
     @JsonManagedReference(value = "curso_cadeira")
     private Set<Cadeira> cadeiras = new HashSet<>();
 
@@ -45,6 +46,7 @@ public class Curso {
     private Set<Aluno> alunos = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.PERSIST)
+    @ToString.Exclude
     @JsonManagedReference(value = "curso_professores")
     private Set<Professor> professores = new HashSet<>();
 
