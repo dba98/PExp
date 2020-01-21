@@ -1,7 +1,6 @@
 package com.plataforma.explicacoes.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.plataforma.explicacoes.exceptions.FaculdadeAlreadyExistsException;
 import com.plataforma.explicacoes.models.Faculdade;
 import com.plataforma.explicacoes.models.Universidade;
 import com.plataforma.explicacoes.services.FaculdadeService;
@@ -11,12 +10,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.util.NestedServletException;
 
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -47,14 +44,6 @@ class FaculdadeControllerTest {
                 post("/faculdade").contentType(MediaType.APPLICATION_JSON_VALUE).content(jsonRequest)
         ).andExpect(
                 status().isOk()
-        );
-
-        when(this.faculdadeService.createFaculdade(faculdade)).thenThrow(new FaculdadeAlreadyExistsException(faculdade.getNome()));
-
-        this.mockMvc.perform(
-                post("/faculdade").contentType(MediaType.APPLICATION_JSON_VALUE).content(jsonRequest)
-        ).andExpect(
-                status().isBadRequest()
         );
     }
 
@@ -94,36 +83,10 @@ class FaculdadeControllerTest {
         Faculdade responseFaculdade = this.objectMapper.readValue(responseJson, Faculdade.class);
         assertEquals(faculdade, responseFaculdade);
 
-        assertThrows(NestedServletException.class, () ->this.mockMvc.perform(
+        this.mockMvc.perform(
                 get("/faculdade/2")
         ).andExpect(
                 status().isNotFound()
-        ));
-    }
-
-    @Test
-    void getFaculdadeByName() throws Exception {
-
-        Universidade uni = new Universidade();
-        Faculdade faculdade = new Faculdade("Faculdade Medicina Dentaria");
-        faculdade.setId(1L);
-
-        when(this.faculdadeService.findByNome("Faculdade Medicina Dentaria")).thenReturn(Optional.of(faculdade));
-
-        String responseJson = this.mockMvc.perform(
-                get("/faculdade/name/"+faculdade.getNome())
-        ).andExpect(
-                status().isOk()
-        ).andReturn().getResponse().getContentAsString();
-        Faculdade responseFaculdade = this.objectMapper.readValue(responseJson, Faculdade.class);
-        assertEquals(faculdade, responseFaculdade);
-
-        assertThrows(NestedServletException.class, () -> this.mockMvc.perform(
-                get("/faculdade/name/R")
-        ).andExpect(
-                status().isNotFound()
-        ));
-
-
+        );
     }
 }
